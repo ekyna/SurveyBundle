@@ -1,0 +1,31 @@
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#survey-survey-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+    <li><a href="#survey-survey-questions" data-toggle="tab">{{ 'ekyna_survey.question.label.plural'|trans }}</a></li>
+    <li><a href="#survey-survey-seo" data-toggle="tab">{{ 'ekyna_core.field.seo'|trans }}</a></li>
+</ul>
+<div class="panel-body form-body">
+    {% form_theme form 'EkynaAdminBundle:Form:form_div_layout.html.twig' %}
+    {{ bootstrap_set_style('horizontal') }}
+    {{ form_errors(form) }}
+    <div class="tab-content">
+	    <div class="tab-pane active" id="survey-survey-general">
+	        {{ form_row(form.name) }}
+	        {{ form_row(form.title) }}
+            <div class="row">
+                <div class="col-md-6">
+	                {{ form_row(form.startDate, {'label_col': 4, 'widget_col': 8}) }}
+                </div>
+                <div class="col-md-6">
+	                {{ form_row(form.endDate, {'label_col': 4, 'widget_col': 8}) }}
+                </div>
+            </div>
+	    </div>
+	    <div class="tab-pane" id="survey-survey-questions">
+            {{ form_row(form.questions) }}
+	    </div>
+	    <div class="tab-pane" id="survey-survey-seo">
+	        {{ form_row(form.seo) }}
+	    </div>
+    </div>
+    {{ form_rest(form) }}
+</div>

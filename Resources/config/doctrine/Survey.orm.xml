@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping
+        xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+        xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                            http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Ekyna\Bundle\SurveyBundle\Entity\Survey"
+            table="survey_survey">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="name" type="string" column="name" length="64" />
+        <field name="title" type="string" column="title" length="255" />
+
+        <field name="startDate" type="datetime" column="start_date" />
+        <field name="endDate" type="datetime" column="end_date" />
+
+        <!-- TODO extra fields -->
+
+        <field name="slug" column="slug" type="string" length="64" unique="true">
+            <gedmo:slug unique="true" updatable="false" fields="name" />
+        </field>
+
+        <field name="createdAt" column="created_at" type="datetime">
+            <gedmo:timestampable on="create" />
+        </field>
+        <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
+            <gedmo:timestampable on="update" />
+        </field>
+
+        <one-to-one target-entity="Ekyna\Bundle\CmsBundle\Entity\TinymceBlock" field="description">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+            <join-column name="description_id" referenced-column-name="id" on-delete="RESTRICT" nullable="false" />
+        </one-to-one>
+
+        <one-to-many target-entity="Ekyna\Bundle\SurveyBundle\Entity\Question" field="questions" mapped-by="survey" orphan-removal="true">
+            <cascade>
+                <cascade-persist />
+                <cascade-remove />
+            </cascade>
+            <order-by>
+                <order-by-field name="position" direction="ASC" />
+            </order-by>
+        </one-to-many>
+
+    </entity>
+
+</doctrine-mapping>

@@ -1,0 +1,6 @@
+ekyna_survey_complete:
+    path: /{slug}
+    defaults: { _controller: EkynaSurveyBundle:Complete:complete }
+    requirements:
+        _method: GET|POST
+        slug: "[a-zA-Z0-9-]+"

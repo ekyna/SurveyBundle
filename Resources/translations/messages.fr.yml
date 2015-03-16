@@ -1,0 +1,35 @@
+ekyna_survey:
+    label: Sondages
+    survey:
+        label:
+            singular: Sondage
+            plural: Sondages
+        header:
+            list: Sondages <small>Liste des sondage</small>
+            show: Détail du sondage <small>%name%</small>
+            new: Créer un nouveau sondage
+            edit: Modifier le sondage <small>%name%</small>
+            remove: Supprimer le sondage <small>%name%</small>
+        button:
+            list: Liste des sondages
+            show: Détail du sondage
+            new: Nouveau sondage
+            edit: Modifier le sondage
+            remove: Supprimer le sondage
+        alert:
+            empty_list: Aucun sondage configuré
+    question:
+        label:
+            singular: Question
+            plural: Questions
+        type:
+            single: Choix unique
+            multiple: Choix multiples
+        button:
+            add: Ajouter une question
+    choice:
+        label:
+            singular: Choix
+            plural: Choix
+        button:
+            add: Ajouter un choix

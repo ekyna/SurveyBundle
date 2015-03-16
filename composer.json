@@ -1,0 +1,35 @@
+{
+	"name" : "ekyna/survey-bundle",
+	"description" : "Survey management",
+	"type" : "symfony-bundle",
+	"authors" : [{
+			"name" : "Etienne Dauvergne",
+			"homepage" : "http://ekyna.com"
+		}
+	],
+	"keywords" : [
+		"symfony2",
+		"survey",
+		"bundle"
+	],
+	"homepage" : "https://github.com/ekyna/SurveyBundle",
+	"license" : [
+		"MIT"
+	],
+	"require" : {
+		"php" : ">=5.4.0",
+		"ekyna/cms-bundle" : "0.1.*@dev",
+		"ob/highcharts-bundle" : "~1.2"
+	},
+	"autoload" : {
+		"psr-0" : {
+			"Ekyna\\Bundle\\SurveyBundle" : ""
+		}
+	},
+	"target-dir" : "Ekyna/Bundle/SurveyBundle",
+	"extra" : {
+		"branch-alias" : {
+			"dev-master" : "0.1.x-dev"
+		}
+	}
+}

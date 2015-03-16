@@ -1,0 +1,80 @@
+{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
+
+{% block title %}
+<h1>{{ 'ekyna_survey.survey.header.show'|trans({'%name%': survey})|raw }}</h1>
+{% endblock %}
+
+{% block actions %}
+{{ admin_resource_btn(survey, 'list') }}
+{{ admin_resource_btn(survey, 'new') }}
+{% endblock %}
+
+{% block main %}
+<div class="actions">
+    {{ admin_resource_btn(survey, 'edit') }}
+    {{ admin_resource_btn(survey, 'remove') }}
+</div>
+<div class="show show-with-tabs">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#survey-survey-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+        <li><a href="#survey-survey-questions" data-toggle="tab">{{ 'ekyna_survey.question.label.plural'|trans }}</a></li>
+        <li><a href="#survey-survey-seo" data-toggle="tab">{{ 'ekyna_core.field.seo'|trans }}</a></li>
+    </ul>
+    <div class="show-body">
+        <div class="tab-content">
+            <div class="tab-pane active" id="survey-survey-general">
+                {{ show_row(survey.name, 'text', 'ekyna_core.field.name') }}
+                {{ show_row(survey.title, 'text', 'ekyna_core.field.title') }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(survey.startDate, 'datetime', 'ekyna_core.field.start_date', {'label_nb_col': 4, 'widget_nb_col': 8, 'date_format': 'full', 'time_format': 'none'}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(survey.endDate, 'datetime', 'ekyna_core.field.end_date', {'label_nb_col': 4, 'widget_nb_col': 8, 'date_format': 'full', 'time_format': 'none'}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="survey-survey-questions">
+                <table class="table table-striped">
+                    {% for question in survey.questions -%}
+                    <tr>
+                        <td colspan="2" style="font-size:16px;line-height:20px; margin-bottom:10px;">
+                            {{ question.content|raw }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="margin-bottom:20px;width:60%;">
+                            <ol style="margin-left: 5px;">
+                                {% for choice in question.choices -%}
+                                    <li style="font-size:14px; line-height:24px;">{{ choice.content|raw }}</li>
+                                {%- endfor %}
+                            </ol>
+                        </td>
+                        <td style="margin-bottom:20px;width:40%;text-align:center;">
+                            {% if question.chart -%}
+                            <div id="q-chart-{{ question.id }}" style="min-width: 350px; height: 160px; margin: 0 auto"></div>
+                            {%- else -%}
+                            <em>Aucune donnée disponible</em> {# TODO trans #}
+                            {%- endif %}
+                        </td>
+                    </tr>
+                    {%- endfor %}
+                </table>
+            </div>
+            <div class="tab-pane" id="survey-survey-seo">
+                {{ show_row(survey.seo, 'seo') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
+    <script type="text/javascript">
+        {% for question in survey.questions %}{% if question.chart -%}
+            {{ chart(question.chart) }}
+        {%- endif %}{% endfor %}
+    </script>
+{% endblock javascripts %}

@@ -1,0 +1,3 @@
+ekyna_survey_survey_admin:
+    resource: "admin/survey.yml"
+    prefix:   /surveys

@@ -1,0 +1,7 @@
+ekyna_survey_admin:
+    resource: "routing/admin.yml"
+    prefix:   /admin/survey
+
+ekyna_survey_front:
+    resource: "routing/front.yml"
+    prefix:   /

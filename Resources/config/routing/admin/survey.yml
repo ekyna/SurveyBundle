@@ -1,0 +1,38 @@
+ekyna_survey_survey_admin_home:
+    path: ""
+    defaults: { _controller: "ekyna_survey.survey.controller:homeAction" }
+    requirements:
+        _method: GET
+
+ekyna_survey_survey_admin_list:
+    path: /list
+    defaults: { _controller: "ekyna_survey.survey.controller:listAction" }
+    requirements:
+        _method: GET|POST
+
+ekyna_survey_survey_admin_new:
+    path: /new
+    defaults: { _controller: "ekyna_survey.survey.controller:newAction" }
+    requirements:
+        _method: GET|POST
+
+ekyna_survey_survey_admin_show:
+    path: /{surveyId}/show
+    defaults: { _controller: "ekyna_survey.survey.controller:showAction" }
+    requirements:
+        _method: GET
+        surveyId:  \d+
+
+ekyna_survey_survey_admin_edit:
+    path: /{surveyId}/edit
+    defaults: { _controller: "ekyna_survey.survey.controller:editAction" }
+    requirements:
+        _method: GET|POST
+        surveyId:  \d+
+
+ekyna_survey_survey_admin_remove:
+    path: /{surveyId}/remove
+    defaults: { _controller: "ekyna_survey.survey.controller:removeAction" }
+    requirements:
+        _method: GET|POST
+        surveyId:  \d+
