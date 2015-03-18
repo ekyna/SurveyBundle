@@ -27,7 +27,7 @@ class AdminMenuPass implements CompilerPassInterface
             'name'     => 'survey',
             'label'    => 'ekyna_survey.label',
             'icon'     => 'question-circle',
-            'position' => 98,
+            'position' => 90,
         )));
         $pool->addMethodCall('createEntry', array('survey', array(
             'name'     => 'surveys',

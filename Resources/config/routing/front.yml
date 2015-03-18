@@ -1,3 +1,0 @@
-ekyna_survey:
-    resource: "front/complete.yml"
-    prefix:   /survey
