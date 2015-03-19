@@ -1,0 +1,25 @@
+{% extends "EkynaCmsBundle::base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            {% include "EkynaCoreBundle:Ui:flashes.html.twig" %}
+
+            {% if survey and form %}
+            <h1>{{ survey.title }}</h1>
+            <hr>
+            <form action="{{ path('ekyna_survey_example_complete') }}" method="post">
+                {{ form_errors(form) }}
+                {{ form_widget(form) }}
+                {{ form_rest(form) }}
+                <hr>
+                {{ ui_form_footer(form) }}
+            </form>
+            {% else %}
+            <p class="alert alert-info">There is currently no survey available. Try again later !</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

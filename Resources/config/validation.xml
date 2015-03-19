@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping
+        xmlns="http://symfony.com/schema/dic/constraint-mapping"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                            http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Ekyna\Bundle\SurveyBundle\Entity\Survey">
+        <property name="name">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="title">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="startDate">
+            <constraint name="NotNull" />
+            <constraint name="Date" />
+        </property>
+        <property name="endDate">
+            <constraint name="NotNull" />
+            <constraint name="Date" />
+        </property>
+        <property name="seo">
+            <constraint name="NotNull" />
+            <constraint name="Valid" />
+        </property>
+        <property name="description">
+            <constraint name="NotNull" />
+            <constraint name="Valid" />
+        </property>
+        <property name="questions">
+            <constraint name="Valid" />
+            <constraint name="Count">
+                <option name="min">1</option>
+                <option name="minMessage">ekyna_survey.survey.at_least_one_question</option>
+            </constraint>
+        </property>
+        <constraint name="Ekyna\Bundle\SurveyBundle\Validator\Constraints\Survey" />
+    </class>
+
+    <class name="Ekyna\Bundle\SurveyBundle\Entity\Question">
+        <property name="type">
+            <constraint name="Ekyna\Bundle\SurveyBundle\Validator\Constraints\QuestionType" />
+        </property>
+        <property name="content">
+            <constraint name="NotBlank" />
+        </property>
+        <property name="choices">
+            <constraint name="Valid" />
+            <constraint name="Count">
+                <option name="min">1</option>
+                <option name="minMessage">ekyna_survey.question.at_least_one_choice</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="Ekyna\Bundle\SurveyBundle\Entity\Choice">
+        <property name="content">
+            <constraint name="NotBlank" />
+        </property>
+    </class>
+
+    <class name="Ekyna\Bundle\SurveyBundle\Entity\Result">
+        <property name="survey">
+            <constraint name="NotNull" />
+        </property>
+        <property name="date">
+            <constraint name="NotNull" />
+            <constraint name="DateTime" />
+        </property>
+        <property name="answers">
+            <constraint name="Valid" />
+        </property>
+    </class>
+
+    <class name="Ekyna\Bundle\SurveyBundle\Entity\Answer">
+        <property name="result">
+            <constraint name="NotNull" />
+        </property>
+        <property name="question">
+            <constraint name="NotNull" />
+        </property>
+        <property name="choices">
+            <constraint name="Count">
+                <option name="min">1</option>
+                <option name="minMessage">ekyna_survey.answer.at_least_one_choice</option>
+            </constraint>
+        </property>
+    </class>
+
+</constraint-mapping>

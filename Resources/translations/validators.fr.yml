@@ -1,1 +1,10 @@
 ekyna_survey:
+    survey:
+        invalid_date_range: La date de fin doit être postérieure à la date de début.
+        at_least_one_question: Veuillez saisir au moins une question.
+    question:
+        at_least_one_choice: Veuillez saisir au moins un choix.
+        type:
+            invalid: Type de question invalide.
+    answer:
+        at_least_one_choice: Veuillez choisir au moins une réponse.

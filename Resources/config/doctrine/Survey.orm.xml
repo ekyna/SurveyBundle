@@ -7,6 +7,7 @@
                             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Ekyna\Bundle\SurveyBundle\Entity\Survey"
+            repository-class="Ekyna\Bundle\SurveyBundle\Entity\SurveyRepository"
             table="survey_survey">
 
         <id name="id" type="integer" column="id">
@@ -16,8 +17,8 @@
         <field name="name" type="string" column="name" length="64" />
         <field name="title" type="string" column="title" length="255" />
 
-        <field name="startDate" type="datetime" column="start_date" />
-        <field name="endDate" type="datetime" column="end_date" />
+        <field name="startDate" type="date" column="start_date" />
+        <field name="endDate" type="date" column="end_date" />
 
         <!-- TODO extra fields -->
 

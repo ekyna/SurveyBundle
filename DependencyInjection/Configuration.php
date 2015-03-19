@@ -50,7 +50,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\SurveyBundle\Entity\Survey')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\SurveyBundle\Controller\Admin\SurveyController')->end()
                                 ->scalarNode('operator')->end()
-                                ->scalarNode('repository')->end()
+                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\SurveyBundle\Entity\SurveyRepository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\SurveyBundle\Form\Type\SurveyType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\SurveyBundle\Table\Type\SurveyType')->end()
                                 ->scalarNode('event')->end()

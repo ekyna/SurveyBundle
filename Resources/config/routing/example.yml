@@ -1,0 +1,5 @@
+ekyna_survey_example_complete:
+    path: /
+    defaults: { _controller: EkynaSurveyBundle:Example:complete }
+    requirements:
+        _method: GET|POST
