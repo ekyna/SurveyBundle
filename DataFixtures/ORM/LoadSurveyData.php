@@ -47,14 +47,9 @@ class LoadSurveyData extends AbstractFixture implements FixtureInterface, Ordere
             $survey
                 ->setName(sprintf('Survey %d test name', $s))
                 ->setTitle($faker->sentence())
+                ->setDescription('<p>' . $faker->paragraph(rand(4, 6)) . '</p>')
                 ->setStartDate($startDate = $faker->dateTimeBetween('-3 month', 'now'))
                 ->setEndDate($faker->dateTimeBetween($startDate, 'now'))
-            ;
-
-            $survey->getDescription()->setHtml('<p>' . $faker->paragraph(rand(4, 6)) . '</p>');
-            $survey->getSeo()
-                ->setTitle($survey->getTitle())
-                ->setDescription($faker->sentence())
             ;
 
             // Creates from 3 to 6 questions

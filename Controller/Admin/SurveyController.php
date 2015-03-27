@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\SurveyBundle\Controller\Admin;
 
 use Ekyna\Bundle\AdminBundle\Controller\Context;
+use Ekyna\Bundle\AdminBundle\Controller\Resource\TinymceTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 
 /**
@@ -12,6 +13,8 @@ use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
  */
 class SurveyController extends ResourceController
 {
+    use TinymceTrait;
+
     /**
      * {@inheritdoc}
      */

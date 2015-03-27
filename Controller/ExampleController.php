@@ -40,14 +40,14 @@ class ExampleController extends Controller
 
                 return $this->redirect($this->generateUrl('ekyna_survey_example_complete'));
             }
-            $form = $complete->getForm()->createView();
+            $formView = $complete->getForm()->createView();
         } else {
-            $form = null;
+            $formView = null;
         }
 
         return $this->render('EkynaSurveyBundle:Example:complete.html.twig', array(
             'survey' => $survey,
-            'form'   => $form,
+            'form'   => $formView,
         ));
     }
 }

@@ -16,6 +16,7 @@
 
         <field name="name" type="string" column="name" length="64" />
         <field name="title" type="string" column="title" length="255" />
+        <field name="description" type="text" column="description" />
 
         <field name="startDate" type="date" column="start_date" />
         <field name="endDate" type="date" column="end_date" />
@@ -32,14 +33,6 @@
         <field name="updatedAt" column="updated_at" type="datetime" nullable="true">
             <gedmo:timestampable on="update" />
         </field>
-
-        <one-to-one target-entity="Ekyna\Bundle\CmsBundle\Entity\TinymceBlock" field="description">
-            <cascade>
-                <cascade-persist />
-                <cascade-remove />
-            </cascade>
-            <join-column name="description_id" referenced-column-name="id" on-delete="RESTRICT" nullable="false" />
-        </one-to-one>
 
         <one-to-many target-entity="Ekyna\Bundle\SurveyBundle\Entity\Question" field="questions" mapped-by="survey" orphan-removal="true">
             <cascade>

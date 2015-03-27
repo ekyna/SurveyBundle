@@ -23,6 +23,7 @@ class ResultType extends AbstractType
                 'label' => false,
                 'type'  => 'ekyna_survey_answer',
             ))
+            ->add('captcha', 'ekyna_captcha')
         ;
     }
 

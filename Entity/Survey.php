@@ -13,10 +13,9 @@ use Ekyna\Bundle\CoreBundle\Model as Core;
  * @package Ekyna\Bundle\SurveyBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface, Cms\SeoSubjectInterface
+class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
 {
-    use Core\TimestampableTrait,
-        Cms\SeoSubjectTrait;
+    use Core\TimestampableTrait;
 
     /**
      * @var integer
@@ -34,7 +33,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface,
     private $title;
 
     /**
-     * @var TinymceBlock
+     * @var string
      */
     private $description;
 
@@ -136,25 +135,25 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface,
     }
 
     /**
-     * Sets the description.
-     *
-     * @param TinymceBlock $description
-     * @return Survey
-     */
-    public function setDescription(TinymceBlock $description)
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    /**
      * Returns the description.
      *
-     * @return TinymceBlock
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Sets the description.
+     *
+     * @param string $description
+     * @return Survey
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
     }
 
     /**

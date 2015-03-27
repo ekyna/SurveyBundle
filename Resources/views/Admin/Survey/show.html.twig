@@ -18,7 +18,6 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#survey-survey-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
         <li><a href="#survey-survey-questions" data-toggle="tab">{{ 'ekyna_survey.question.label.plural'|trans }}</a></li>
-        <li><a href="#survey-survey-seo" data-toggle="tab">{{ 'ekyna_core.field.seo'|trans }}</a></li>
     </ul>
     <div class="show-body">
         <div class="tab-content">
@@ -33,6 +32,7 @@
                         {{ show_row(survey.endDate, 'datetime', 'ekyna_core.field.end_date', {'label_nb_col': 4, 'widget_nb_col': 8, 'date_format': 'full', 'time_format': 'none'}) }}
                     </div>
                 </div>
+                {{ show_row(path('ekyna_survey_survey_admin_tinymce', identifiers|merge({'surveyId': survey.id})), 'tinymce', 'ekyna_core.field.description') }}
             </div>
             <div class="tab-pane" id="survey-survey-questions">
                 <table class="table table-striped">
@@ -60,9 +60,6 @@
                     </tr>
                     {%- endfor %}
                 </table>
-            </div>
-            <div class="tab-pane" id="survey-survey-seo">
-                {{ show_row(survey.seo, 'seo') }}
             </div>
         </div>
     </div>

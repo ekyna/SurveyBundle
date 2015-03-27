@@ -30,6 +30,14 @@ ekyna_survey_survey_admin_edit:
         _method: GET|POST
         surveyId:  \d+
 
+ekyna_survey_survey_admin_tinymce:
+    path: /{surveyId}/tinymce
+    defaults: { _controller: "ekyna_survey.survey.controller:tinymceAction", field: description }
+    requirements:
+        _method: GET
+        field: "[a-zA-Z0-9]+"
+        surveyId:  \d+
+
 ekyna_survey_survey_admin_remove:
     path: /{surveyId}/remove
     defaults: { _controller: "ekyna_survey.survey.controller:removeAction" }

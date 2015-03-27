@@ -24,6 +24,13 @@ class SurveyType extends ResourceFormType
             ->add('title', 'text', array(
                 'label' => 'ekyna_core.field.title',
             ))
+            ->add('description', 'textarea', array(
+                'label' => 'ekyna_core.field.description',
+                'attr' => array(
+                    'class' => 'tinymce',
+                    'data-theme' => 'advanced',
+                ),
+            ))
             ->add('startDate', 'datetime', array(
                 'label' => 'ekyna_core.field.start_date',
                 'format' => 'dd/MM/yyyy',
@@ -43,7 +50,6 @@ class SurveyType extends ResourceFormType
                 'button_col'      => 1,
                 'prototype_name'  => '__qname__',
             ))
-            ->add('seo', 'ekyna_cms_seo')
         ;
     }
 
