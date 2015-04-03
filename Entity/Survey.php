@@ -63,7 +63,6 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
      */
     public function __construct()
     {
-        $this->description = new TinymceBlock();
         $this->seo = new Seo();
         $this->questions = new ArrayCollection();
     }

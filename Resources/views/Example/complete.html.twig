@@ -8,6 +8,7 @@
 
             {% if survey and form %}
             <h1>{{ survey.title }}</h1>
+            <div>{{ survey.description|raw }}</div>
             <hr>
             <form action="{{ path('ekyna_survey_example_complete') }}" method="post">
                 {{ form_errors(form) }}
