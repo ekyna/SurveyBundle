@@ -15,7 +15,8 @@ use Ekyna\Bundle\CoreBundle\Model as Core;
  */
 class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
 {
-    use Core\TimestampableTrait;
+    use Core\TimestampableTrait,
+        Core\TaggedEntityTrait;
 
     /**
      * @var integer
@@ -293,11 +294,8 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     /**
      * {@inheritdoc}
      */
-    public function getEntityTag()
+    public static function getEntityTagPrefix()
     {
-        if (null === $this->getId()) {
-            throw new \RuntimeException('Unable to generate entity tag, as the id property is undefined.');
-        }
-        return sprintf('ekyna_survey.survey[id:%s]', $this->getId());
+        return 'ekyna_survey.survey';
     }
 }
