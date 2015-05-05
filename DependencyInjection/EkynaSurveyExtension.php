@@ -4,7 +4,6 @@ namespace Ekyna\Bundle\SurveyBundle\DependencyInjection;
 
 use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
@@ -12,7 +11,7 @@ use Symfony\Component\DependencyInjection\Loader;
  * @package Ekyna\Bundle\SurveyBundle\DependencyInjection
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class EkynaSurveyExtension extends AbstractExtension implements PrependExtensionInterface
+class EkynaSurveyExtension extends AbstractExtension
 {
     /**
      * {@inheritDoc}
@@ -27,22 +26,14 @@ class EkynaSurveyExtension extends AbstractExtension implements PrependExtension
      */
     public function prepend(ContainerBuilder $container)
     {
+        parent::prepend($container);
+
         $bundles = $container->getParameter('kernel.bundles');
 
         if (array_key_exists('AsseticBundle', $bundles)) {
-            $this->configureAsseticBundle($container);
+            $container->prependExtensionConfig('assetic', array(
+                'bundles' => array('EkynaSurveyBundle')
+            ));
         }
-    }
-
-    /**
-     * Configures the assetic bundle.
-     *
-     * @param ContainerBuilder $container
-     */
-    protected function configureAsseticBundle(ContainerBuilder $container)
-    {
-        $container->prependExtensionConfig('assetic', array(
-            'bundles' => array('EkynaSurveyBundle')
-        ));
     }
 }

@@ -8,3 +8,6 @@ TODO
 
 ## Configuration
 TODO
+
+## TODOs
+* More question / answer types (text, integer, ...)
