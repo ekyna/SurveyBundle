@@ -39,7 +39,7 @@ class SurveyType extends ResourceFormType
                 'label' => 'ekyna_core.field.end_date',
                 'format' => 'dd/MM/yyyy',
             ))
-            ->add('questions', 'ekyna_core_collection', array(
+            ->add('questions', 'ekyna_collection', array(
                 'label'           => 'ekyna_survey.question.label.plural',
                 'type'            => 'ekyna_survey_question',
                 'allow_add'       => true,

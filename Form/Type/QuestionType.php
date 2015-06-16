@@ -36,7 +36,7 @@ class QuestionType extends AbstractType
                     'data-collection-role' => 'position',
                 ),
             ))
-            ->add('choices', 'ekyna_core_collection', array(
+            ->add('choices', 'ekyna_collection', array(
                 'label'           => 'ekyna_survey.choice.label.plural',
                 'type'            => 'ekyna_survey_choice',
                 'allow_add'       => true,
