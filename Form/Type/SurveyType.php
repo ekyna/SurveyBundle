@@ -24,12 +24,9 @@ class SurveyType extends ResourceFormType
             ->add('title', 'text', array(
                 'label' => 'ekyna_core.field.title',
             ))
-            ->add('description', 'textarea', array(
+            ->add('description', 'tinymce', array(
                 'label' => 'ekyna_core.field.description',
-                'attr' => array(
-                    'class' => 'tinymce',
-                    'data-theme' => 'advanced',
-                ),
+                'theme' => 'advanced',
             ))
             ->add('startDate', 'datetime', array(
                 'label' => 'ekyna_core.field.start_date',

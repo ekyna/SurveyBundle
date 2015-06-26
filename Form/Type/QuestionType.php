@@ -20,12 +20,9 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options = array())
     {
         $builder
-            ->add('content', 'textarea', array(
+            ->add('content', 'tinymce', array(
                 'label' => 'ekyna_core.field.content',
-                'attr' => array(
-                    'class' => 'tinymce',
-                    'data-theme' => 'simple',
-                )
+                'theme' => 'simple',
             ))
             ->add('type', 'choice', array(
                 'label' => 'ekyna_core.field.type',
