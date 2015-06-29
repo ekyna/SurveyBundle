@@ -5,6 +5,7 @@
 <div class="panel-body form-body">
     {% form_theme form 'EkynaAdminBundle:Form:form_div_layout.html.twig' %}
     {{ bootstrap_set_style('horizontal') }}
+    {{ bootstrap_set_col_size('md') }}
     {{ form_errors(form) }}
     <div class="tab-content">
 	    <div class="tab-pane active" id="survey-survey-general">
