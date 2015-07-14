@@ -3,7 +3,6 @@
     <li><a href="#survey-survey-questions" data-toggle="tab">{{ 'ekyna_survey.question.label.plural'|trans }}</a></li>
 </ul>
 <div class="panel-body form-body">
-    {% form_theme form 'EkynaAdminBundle:Form:form_div_layout.html.twig' %}
     {{ bootstrap_set_style('horizontal') }}
     {{ bootstrap_set_col_size('md') }}
     {{ form_errors(form) }}
