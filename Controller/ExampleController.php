@@ -24,17 +24,7 @@ class ExampleController extends Controller
         $survey = $this->get('ekyna_survey.survey.repository')->findCurrent();
 
         if (null !== $survey) {
-            $complete = $this->get('ekyna_survey.complete_factory')->get($survey, array(
-                '_footer' => array(
-                    'buttons' => array(
-                        'submit' => array(
-                            'theme' => 'primary',
-                            'icon' => 'ok',
-                            'label' => 'ekyna_core.button.validate',
-                        )
-                    )
-                ),
-            ));
+            $complete = $this->get('ekyna_survey.complete_factory')->get($survey);
             if ($complete->handleRequest($request)) {
                 $this->addFlash('Bravo !', 'success');
 

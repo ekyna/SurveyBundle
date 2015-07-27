@@ -74,7 +74,22 @@ class CompleteFactory
 
         $this->dispatcher->dispatch(ResultEvents::INITIALIZED, new ResultEvent($result));
 
-        $form = $this->formFactory->create('ekyna_survey_result', $result, $formOptions);
+        $form = $this->formFactory
+            ->create('ekyna_survey_result', $result, $formOptions)
+            ->add('actions', 'form_actions', [
+                'buttons' => [
+                    'validate' => [
+                        'type' => 'submit', 'options' => [
+                            'button_class' => 'primary',
+                            'label' => 'ekyna_core.button.validate',
+                            'attr' => [
+                                'icon' => 'ok',
+                            ],
+                        ],
+                    ],
+                ],
+            ])
+        ;
 
         return new Complete($result, $form, $this->manager, $this->dispatcher);
     }
