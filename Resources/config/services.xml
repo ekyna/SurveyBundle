@@ -20,6 +20,7 @@
             <tag name="form.type" alias="ekyna_survey_choice" />
         </service>
         <service id="ekyna_survey.result.form_type" class="Ekyna\Bundle\SurveyBundle\Form\Type\ResultType">
+            <argument>%kernel.environment%</argument>
             <tag name="form.type" alias="ekyna_survey_result" />
         </service>
         <service id="ekyna_survey.answer.form_type" class="Ekyna\Bundle\SurveyBundle\Form\Type\AnswerType">

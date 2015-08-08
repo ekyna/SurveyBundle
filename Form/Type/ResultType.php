@@ -14,6 +14,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class ResultType extends AbstractType
 {
     /**
+     * @var string
+     */
+    private $kernelEnvironment;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string $environment
+     */
+    public function __construct($environment)
+    {
+        $this->kernelEnvironment = $environment;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -23,8 +39,11 @@ class ResultType extends AbstractType
                 'label' => false,
                 'type'  => 'ekyna_survey_answer',
             ))
-            ->add('captcha', 'ekyna_captcha')
         ;
+
+        if ($this->kernelEnvironment !== 'test') {
+            $builder->add('captcha', 'ekyna_captcha');
+        }
     }
 
     /**
