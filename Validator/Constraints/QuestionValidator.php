@@ -52,8 +52,8 @@ class QuestionValidator extends ConstraintValidator
 
         if (!$type->requireChoices() && 0 < $question->getChoices()->count()) {
             $this->context->addViolationAt('choices', $constraint->choicesMustBeEmpty);
-        } elseif ($type->requireChoices() && 0 === $question->getChoices()->count()) {
-            $this->context->addViolationAt('choices', $constraint->atLeastOneChoice);
+        } elseif ($type->requireChoices() && 2 > $question->getChoices()->count()) {
+            $this->context->addViolationAt('choices', $constraint->atLeastTwoChoice);
         }
     }
 }
