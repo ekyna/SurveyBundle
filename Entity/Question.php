@@ -3,6 +3,8 @@
 namespace Ekyna\Bundle\SurveyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
+use Ekyna\Bundle\SurveyBundle\Model\SurveyInterface;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 
 /**
@@ -10,42 +12,43 @@ use Ob\HighchartsBundle\Highcharts\Highchart;
  * @package Ekyna\Bundle\SurveyBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Question
+class Question implements QuestionInterface
 {
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var Survey
+     * @var SurveyInterface
      */
-    private $survey;
+    protected $survey;
 
     /**
      * @var ArrayCollection|Choice[]
      */
-    private $choices;
+    protected $choices;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @var string
      */
-    private $content;
+    protected $content;
 
     /**
      * @var integer
      */
-    private $position;
+    protected $position;
 
     /**
      * @var Highchart
      */
-    private $chart;
+    protected $chart;
+
 
     /**
      * Constructor.
@@ -66,9 +69,7 @@ class Question
     }
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -76,21 +77,16 @@ class Question
     }
 
     /**
-     * Sets the survey.
-     *
-     * @param Survey $survey
-     * @return Question
+     * {@inheritdoc}
      */
-    public function setSurvey($survey)
+    public function setSurvey(SurveyInterface $survey)
     {
         $this->survey = $survey;
         return $this;
     }
 
     /**
-     * Returns the survey.
-     *
-     * @return Survey
+     * {@inheritdoc}
      */
     public function getSurvey()
     {
@@ -98,10 +94,7 @@ class Question
     }
 
     /**
-     * Sets the choices.
-     *
-     * @param ArrayCollection|Choice[] $choices
-     * @return Question
+     * {@inheritdoc}
      */
     public function setChoices(ArrayCollection $choices)
     {
@@ -113,10 +106,7 @@ class Question
     }
 
     /**
-     * Returns whether the question has the choice or not (she probably does).
-     *
-     * @param Choice $choice
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasChoice(Choice $choice)
     {
@@ -124,10 +114,7 @@ class Question
     }
 
     /**
-     * Adds the choice.
-     *
-     * @param Choice $choice
-     * @return Question
+     * {@inheritdoc}
      */
     public function addChoice(Choice $choice)
     {
@@ -139,10 +126,7 @@ class Question
     }
 
     /**
-     * Removes the choice.
-     *
-     * @param Choice $choice
-     * @return Question
+     * {@inheritdoc}
      */
     public function removeChoice(Choice $choice)
     {
@@ -154,9 +138,7 @@ class Question
     }
 
     /**
-     * Returns the choices.
-     *
-     * @return ArrayCollection|Choice[]
+     * {@inheritdoc}
      */
     public function getChoices()
     {
@@ -164,10 +146,7 @@ class Question
     }
 
     /**
-     * Sets the type.
-     *
-     * @param string $type
-     * @return Question
+     * {@inheritdoc}
      */
     public function setType($type)
     {
@@ -176,9 +155,7 @@ class Question
     }
 
     /**
-     * Returns the type.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getType()
     {
@@ -186,10 +163,7 @@ class Question
     }
 
     /**
-     * Set content
-     *
-     * @param string $content
-     * @return Question
+     * {@inheritdoc}
      */
     public function setContent($content)
     {
@@ -199,9 +173,7 @@ class Question
     }
 
     /**
-     * Get content
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getContent()
     {
@@ -209,10 +181,7 @@ class Question
     }
 
     /**
-     * Sets the position.
-     *
-     * @param int $position
-     * @return Question
+     * {@inheritdoc}
      */
     public function setPosition($position)
     {
@@ -221,9 +190,7 @@ class Question
     }
 
     /**
-     * Returns the position.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getPosition()
     {
@@ -231,9 +198,7 @@ class Question
     }
 
     /**
-     * Returns the chart.
-     *
-     * @return Highchart
+     * {@inheritdoc}
      */
     public function getChart()
     {
@@ -241,10 +206,7 @@ class Question
     }
 
     /**
-     * Sets the chart.
-     *
-     * @param Highchart $chart
-     * @return Question
+     * {@inheritdoc}
      */
     public function setChart(Highchart $chart = null)
     {

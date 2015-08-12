@@ -5,18 +5,22 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Ekyna\Bundle\SurveyBundle\Entity\Answer"
+    <mapped-superclass
+            name="Ekyna\Bundle\SurveyBundle\Entity\Answer"
+            repository-class="Ekyna\Bundle\SurveyBundle\Entity\AnswerRepository"
             table="survey_answer">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
 
-        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Entity\Result" field="result" inversed-by="answers" orphan-removal="true">
+        <field name="value" type="string" column="value" length="255" nullable="true" />
+
+        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Model\ResultInterface" field="result" inversed-by="answers" orphan-removal="true">
             <join-column name="result_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
         </many-to-one>
 
-        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Entity\Question" field="question">
+        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Model\QuestionInterface" field="question">
             <join-column name="question_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
         </many-to-one>
 
@@ -35,6 +39,6 @@
             </join-table>
         </many-to-many>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

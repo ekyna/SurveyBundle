@@ -1,11 +1,10 @@
 <?php
 
-namespace Ekyna\Bundle\SurveyBundle\Complete;
+namespace Ekyna\Bundle\SurveyBundle\Survey;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Entity\Answer;
-use Ekyna\Bundle\SurveyBundle\Entity\Result;
+use Ekyna\Bundle\SurveyBundle\Entity\ResultRepository;
 use Ekyna\Bundle\SurveyBundle\Entity\Survey;
 use Ekyna\Bundle\SurveyBundle\Event\ResultEvent;
 use Ekyna\Bundle\SurveyBundle\Event\ResultEvents;
@@ -14,7 +13,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 /**
  * Class CompleteFactory
- * @package Ekyna\Bundle\SurveyBundle\Complete
+ * @package Ekyna\Bundle\SurveyBundle\Survey
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class CompleteFactory
@@ -34,6 +33,11 @@ class CompleteFactory
      */
     private $dispatcher;
 
+    /**
+     * @var ResultRepository
+     */
+    private $resultRepository;
+
 
     /**
      * Constructor.
@@ -41,15 +45,18 @@ class CompleteFactory
      * @param FormFactoryInterface     $formFactory
      * @param EntityManagerInterface   $manager
      * @param EventDispatcherInterface $dispatcher
+     * @param ResultRepository         $repository
      */
     public function __construct(
         FormFactoryInterface $formFactory,
         EntityManagerInterface $manager,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        ResultRepository $repository
     ) {
-        $this->formFactory = $formFactory;
-        $this->manager     = $manager;
-        $this->dispatcher  = $dispatcher;
+        $this->formFactory      = $formFactory;
+        $this->manager          = $manager;
+        $this->dispatcher       = $dispatcher;
+        $this->resultRepository = $repository;
     }
 
     /**
@@ -61,7 +68,7 @@ class CompleteFactory
      */
     public function get(Survey $survey, array $formOptions = array())
     {
-        $result = new Result();
+        $result = $this->resultRepository->createNew();
         $result
             ->setSurvey($survey)
             ->setDate(new \DateTime())

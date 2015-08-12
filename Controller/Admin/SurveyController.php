@@ -14,18 +14,4 @@ use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 class SurveyController extends ResourceController
 {
     use TinymceTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function buildShowData(array &$data, Context $context)
-    {
-        /** @var \Ekyna\Bundle\SurveyBundle\Entity\Survey $survey */
-        $survey = $context->getResource();
-        $loader = $this->get('ekyna_survey.chart.loader');
-
-        foreach ($survey->getQuestions() as $question) {
-            $loader->loadQuestionChart($question);
-        }
-    }
 }

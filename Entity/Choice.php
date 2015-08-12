@@ -1,6 +1,7 @@
 <?php
 
 namespace Ekyna\Bundle\SurveyBundle\Entity;
+use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 
 /**
  * Class Choice
@@ -15,7 +16,7 @@ class Choice
     private $id;
 
     /**
-     * @var Question
+     * @var QuestionInterface
      */
     private $question;
 
@@ -53,10 +54,10 @@ class Choice
     /**
      * Sets the question.
      *
-     * @param Question $question
+     * @param QuestionInterface $question
      * @return Choice
      */
-    public function setQuestion(Question $question = null)
+    public function setQuestion(QuestionInterface $question = null)
     {
         $this->question = $question;
         return $this;
@@ -65,7 +66,7 @@ class Choice
     /**
      * Returns the question.
      *
-     * @return Question
+     * @return QuestionInterface
      */
     public function getQuestion()
     {

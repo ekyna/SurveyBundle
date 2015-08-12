@@ -8,8 +8,8 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Bundle\SurveyBundle\Entity\Answer;
-use Ekyna\Bundle\SurveyBundle\Entity\Result;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionTypes;
+use Faker\Factory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -38,15 +38,20 @@ class LoadResultData extends AbstractFixture implements FixtureInterface, Ordere
      */
     public function load(ObjectManager $om)
     {
+        $faker = Factory::create($this->container->getParameter('hautelook_alice.locale'));
+
         /** @var \Ekyna\Bundle\SurveyBundle\Entity\Survey[] $surveys */
         $surveys = $this->container->get('ekyna_survey.survey.repository')->findAll();
+        $resultRepository = $this->container->get('ekyna_survey.result.repository');
+        $answerRepository = $this->container->get('ekyna_survey.answer.repository');
+        $registry = $this->container->get('ekyna_survey.answer_type.registry');
 
         // For each surveys
         foreach ($surveys as $survey) {
 
             // Create 15 results
             for ($r = 0; $r < 15; $r++) {
-                $result = new Result();
+                $result = $resultRepository->createNew();
                 $result
                     ->setDate(new \DateTime())
                     ->setSurvey($survey)
@@ -54,16 +59,11 @@ class LoadResultData extends AbstractFixture implements FixtureInterface, Ordere
 
                 // For each survey questions
                 foreach ($survey->getQuestions() as $question) {
-                    // Random choices
-                    $questionChoices = $question->getChoices()->toArray();
-                    $limit = $question->getType() === QuestionTypes::MULTIPLE_CHOICES ? rand(1, count($questionChoices)) : 1;
-                    $answerChoices = $this->getArrayRandomElements($questionChoices, $limit);
+                    $answer = $answerRepository->createNew();
+                    $answer->setQuestion($question);
 
-                    $answer = new Answer();
-                    $answer
-                        ->setQuestion($question)
-                        ->setChoices(new ArrayCollection($answerChoices))
-                    ;
+                    $type = $registry->getType($question->getType());
+                    $type->loadFixtureData($answer, $faker);
 
                     $result->addAnswer($answer);
                 }
@@ -72,28 +72,6 @@ class LoadResultData extends AbstractFixture implements FixtureInterface, Ordere
                 $om->flush();
             }
         }
-    }
-
-    /**
-     * Returns random elements from the values.
-     *
-     * @param array $values
-     * @param int $limit
-     * @return array
-     */
-    private function getArrayRandomElements(array $values, $limit = 1)
-    {
-        $values = array_values($values);
-        shuffle($values);
-        $return = array();
-        for ($i = 0; $i < $limit; $i++) {
-            if (!array_key_exists($i, $values)) {
-                var_dump($values);
-                exit();
-            }
-            $return[] = $values[$i];
-        }
-        return $return;
     }
 
     /**

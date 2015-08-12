@@ -4,39 +4,119 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="ekyna_survey.example.class">Ekyna\Bundle\SurveyBundle\Example</parameter>
+        <parameter key="ekyna_survey.question.class">Ekyna\Bundle\SurveyBundle\Entity\Question</parameter>
+        <parameter key="ekyna_survey.question.repository.class">Ekyna\Bundle\SurveyBundle\Entity\QuestionRepository</parameter>
+        <parameter key="ekyna_survey.question.form_type.class">Ekyna\Bundle\SurveyBundle\Form\Type\QuestionType</parameter>
+
+        <parameter key="ekyna_survey.result.class">Ekyna\Bundle\SurveyBundle\Entity\Result</parameter>
+        <parameter key="ekyna_survey.result.repository.class">Ekyna\Bundle\SurveyBundle\Entity\ResultRepository</parameter>
+        <parameter key="ekyna_survey.result.form_type.class">Ekyna\Bundle\SurveyBundle\Form\Type\ResultType</parameter>
+
+        <parameter key="ekyna_survey.answer.class">Ekyna\Bundle\SurveyBundle\Entity\Answer</parameter>
+        <parameter key="ekyna_survey.answer.repository.class">Ekyna\Bundle\SurveyBundle\Entity\AnswerRepository</parameter>
+        <parameter key="ekyna_survey.answer.form_type.class">Ekyna\Bundle\SurveyBundle\Form\Type\AnswerType</parameter>
     </parameters>
-    -->
 
     <services>
 
+        <!-- Answer types -->
+        <service id="ekyna_survey.answer_type.single_choice" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\SingleChoiceAnswerType">
+            <tag name="ekyna_survey.answer_type" />
+        </service>
+        <service id="ekyna_survey.answer_type.multiple_choice" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\MultipleChoiceAnswerType">
+            <tag name="ekyna_survey.answer_type" />
+        </service>
+        <service id="ekyna_survey.answer_type.yes_or_no" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\YesOrNoAnswerType">
+            <tag name="ekyna_survey.answer_type" />
+        </service>
+        <service id="ekyna_survey.answer_type.text" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\TextAnswerType">
+            <tag name="ekyna_survey.answer_type" />
+        </service>
+        <service id="ekyna_survey.answer_type.integer" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\IntegerAnswerType">
+            <tag name="ekyna_survey.answer_type" />
+        </service>
+
+        <!-- Answer type registry -->
+        <service id="ekyna_survey.answer_type.registry" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeRegistry">
+            <argument type="collection" />
+        </service>
+
+        <!-- Event listener -->
+        <service id="ekyna_survey.survey.event_subscriber" class="Ekyna\Bundle\SurveyBundle\EventListener\SurveyEventSubscriber">
+            <argument id="ekyna_survey.result.repository" type="service" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <!-- Repositories -->
+        <service id="ekyna_survey.question.repository"
+                 class="%ekyna_survey.question.repository.class%"
+                 factory-service="doctrine.orm.default_entity_manager"
+                 factory-method="getRepository">
+            <argument>%ekyna_survey.question.class%</argument>
+        </service>
+        <service id="ekyna_survey.result.repository"
+                 class="%ekyna_survey.result.repository.class%"
+                 factory-service="doctrine.orm.default_entity_manager"
+                 factory-method="getRepository">
+            <argument>%ekyna_survey.result.class%</argument>
+        </service>
+        <service id="ekyna_survey.answer.repository"
+                 class="%ekyna_survey.answer.repository.class%"
+                 factory-service="doctrine.orm.default_entity_manager"
+                 factory-method="getRepository">
+            <argument>%ekyna_survey.answer.class%</argument>
+        </service>
+
         <!-- Form types -->
-        <service id="ekyna_survey.question.form_type" class="Ekyna\Bundle\SurveyBundle\Form\Type\QuestionType">
+        <service id="ekyna_survey.question.form_type" class="%ekyna_survey.question.form_type.class%">
+            <argument>%ekyna_survey.question.class%</argument>
+            <argument id="ekyna_survey.answer_type.registry" type="service" />
             <tag name="form.type" alias="ekyna_survey_question" />
+        </service>
+        <service id="ekyna_survey.result.form_type" class="%ekyna_survey.result.form_type.class%">
+            <argument>%ekyna_survey.result.class%</argument>
+            <argument>%kernel.environment%</argument>
+            <tag name="form.type" alias="ekyna_survey_result" />
+        </service>
+        <service id="ekyna_survey.answer.form_type" class="%ekyna_survey.answer.form_type.class%">
+            <argument>%ekyna_survey.answer.class%</argument>
+            <argument id="ekyna_survey.answer_type.registry" type="service" />
+            <tag name="form.type" alias="ekyna_survey_answer" />
         </service>
         <service id="ekyna_survey.choice.form_type" class="Ekyna\Bundle\SurveyBundle\Form\Type\ChoiceType">
             <tag name="form.type" alias="ekyna_survey_choice" />
         </service>
-        <service id="ekyna_survey.result.form_type" class="Ekyna\Bundle\SurveyBundle\Form\Type\ResultType">
-            <argument>%kernel.environment%</argument>
-            <tag name="form.type" alias="ekyna_survey_result" />
-        </service>
-        <service id="ekyna_survey.answer.form_type" class="Ekyna\Bundle\SurveyBundle\Form\Type\AnswerType">
-            <tag name="form.type" alias="ekyna_survey_answer" />
-        </service>
 
         <!-- Complete factory -->
-        <service id="ekyna_survey.complete_factory" class="Ekyna\Bundle\SurveyBundle\Complete\CompleteFactory">
-            <argument type="service" id="form.factory" />
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
-            <argument type="service" id="event_dispatcher" />
+        <service id="ekyna_survey.complete_factory" class="Ekyna\Bundle\SurveyBundle\Survey\CompleteFactory">
+            <argument id="form.factory" type="service" />
+            <argument id="doctrine.orm.default_entity_manager" type="service" />
+            <argument id="event_dispatcher" type="service" />
+            <argument id="ekyna_survey.result.repository" type="service" />
         </service>
 
         <!-- Charts loader -->
-        <service id="ekyna_survey.chart.loader" class="Ekyna\Bundle\SurveyBundle\Chart\Loader">
-            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        <service id="ekyna_survey.chart_loader" class="Ekyna\Bundle\SurveyBundle\Survey\ChartLoader">
+            <argument id="ekyna_survey.answer_type.registry" type="service" />
+            <argument id="doctrine.orm.default_entity_manager" type="service" />
+        </service>
+
+        <!-- Validators -->
+        <service id="ekyna_survey.question.validator" class="Ekyna\Bundle\SurveyBundle\Validator\Constraints\QuestionValidator">
+            <argument id="ekyna_survey.answer_type.registry" type="service" />
+            <tag name="validator.constraint_validator" alias="ekyna_survey_question" />
+        </service>
+        <service id="ekyna_survey.answer.validator" class="Ekyna\Bundle\SurveyBundle\Validator\Constraints\AnswerValidator">
+            <argument id="ekyna_survey.answer_type.registry" type="service" />
+            <tag name="validator.constraint_validator" alias="ekyna_survey_answer" />
+        </service>
+
+        <!-- Twig extensions -->
+        <service id="ekyna_survey.twig.survey_extension" class="Ekyna\Bundle\SurveyBundle\Twig\SurveyExtension">
+            <argument type="service" id="ekyna_survey.answer_type.registry" />
+            <argument type="service" id="ekyna_survey.chart_loader" />
+            <tag name="twig.extension" />
         </service>
 
     </services>

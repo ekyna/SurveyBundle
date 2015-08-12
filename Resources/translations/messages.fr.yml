@@ -18,15 +18,22 @@ ekyna_survey:
             remove: Supprimer le sondage
         alert:
             empty_list: Aucun sondage configuré
+            update_prevented: Ce sondage est lié à des réponses et ne peut donc pas être modifié.
     question:
         label:
             singular: Question
             plural: Questions
         type:
-            single: Choix unique
-            multiple: Choix multiples
+            single_choice: Choix unique
+            multiple_choice: Choix multiples
+            yes_or_no: Oui ou Non
+            text: Texte
+            integer: Nombre
         button:
             add: Ajouter une question
+        message:
+            no_chart: Graphique non disponible.
+            input_answer: Réponse par saisie.
     choice:
         label:
             singular: Choix

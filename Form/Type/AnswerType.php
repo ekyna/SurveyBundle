@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\SurveyBundle\Form\Type;
 
-use Ekyna\Bundle\SurveyBundle\Model\QuestionTypes;
+use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -17,6 +17,29 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class AnswerType extends AbstractType
 {
     /**
+     * @var string
+     */
+    private $dataClass;
+
+    /**
+     * @var AnswerTypeRegistryInterface
+     */
+    private $registry;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string                      $dataClass
+     * @param AnswerTypeRegistryInterface $registry
+     */
+    public function __construct($dataClass, AnswerTypeRegistryInterface $registry)
+    {
+        $this->dataClass = $dataClass;
+        $this->registry  = $registry;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -25,27 +48,11 @@ class AnswerType extends AbstractType
             FormEvents::PRE_SET_DATA,
             function(FormEvent $event) {
                 $form = $event->getForm();
-                /** @var \Ekyna\Bundle\SurveyBundle\Entity\Question $question */
+                /** @var \Ekyna\Bundle\SurveyBundle\Model\QuestionInterface $question */
                 $question = $event->getData()->getQuestion();
-                QuestionTypes::isValid($question->getType(), true);
 
-                if ($question->getType() === QuestionTypes::MULTIPLE_CHOICES) {
-                    $form->add('choices', 'entity', array(
-                        'label' => $question->getContent(),
-                        'choices' => $question->getChoices()->toArray(),
-                        'class' => 'Ekyna\Bundle\SurveyBundle\Entity\Choice',
-                        'expanded' => true,
-                        'multiple' => true,
-                    ));
-                } else {
-                    $form->add('choice', 'entity', array(
-                        'label' => $question->getContent(),
-                        'choices' => $question->getChoices()->toArray(),
-                        'class' => 'Ekyna\Bundle\SurveyBundle\Entity\Choice',
-                        'expanded' => true,
-                        'multiple' => false,
-                    ));
-                }
+                $type = $this->registry->getType($question->getType());
+                $type->buildForm($form, $question);
             }
         );
     }
@@ -58,7 +65,7 @@ class AnswerType extends AbstractType
         $resolver
             ->setDefaults(array(
                 'label' => false,
-                'data_class' => 'Ekyna\Bundle\SurveyBundle\Entity\Answer',
+                'data_class' => $this->dataClass,
             ))
         ;
     }

@@ -4,16 +4,16 @@ namespace Ekyna\Bundle\SurveyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ekyna\Bundle\CmsBundle\Entity\Seo;
-use Ekyna\Bundle\CmsBundle\Entity\TinymceBlock;
-use Ekyna\Bundle\CmsBundle\Model as Cms;
 use Ekyna\Bundle\CoreBundle\Model as Core;
+use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
+use Ekyna\Bundle\SurveyBundle\Model\SurveyInterface;
 
 /**
  * Class Survey
  * @package Ekyna\Bundle\SurveyBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
+class Survey implements SurveyInterface
 {
     use Core\TimestampableTrait,
         Core\TaggedEntityTrait;
@@ -21,42 +21,42 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string
      */
-    private $description;
+    protected $description;
 
     /**
      * @var \DateTime
      */
-    private $startDate;
+    protected $startDate;
 
     /**
      * @var \DateTime
      */
-    private $endDate;
+    protected $endDate;
 
     /**
      * @var string
      */
-    private $slug;
+    protected $slug;
 
     /**
-     * @var ArrayCollection|Question[]
+     * @var ArrayCollection|QuestionInterface[]
      */
-    private $questions;
+    protected $questions;
 
 
     /**
@@ -89,10 +89,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Set name
-     *
-     * @param string $name
-     * @return Survey
+     * {@inheritdoc}
      */
     public function setName($name)
     {
@@ -102,9 +99,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Get name
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -112,10 +107,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Set title
-     *
-     * @param string $title
-     * @return Survey
+     * {@inheritdoc}
      */
     public function setTitle($title)
     {
@@ -125,9 +117,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Get title
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getTitle()
     {
@@ -135,9 +125,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Returns the description.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getDescription()
     {
@@ -145,10 +133,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Sets the description.
-     *
-     * @param string $description
-     * @return Survey
+     * {@inheritdoc}
      */
     public function setDescription($description)
     {
@@ -157,12 +142,9 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Set startDate
-     *
-     * @param \DateTime $startDate
-     * @return Survey
+     * {@inheritdoc}
      */
-    public function setStartDate($startDate)
+    public function setStartDate(\DateTime $startDate)
     {
         $this->startDate = $startDate;
 
@@ -170,9 +152,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Get startDate
-     *
-     * @return \DateTime 
+     * {@inheritdoc}
      */
     public function getStartDate()
     {
@@ -180,12 +160,9 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Set endDate
-     *
-     * @param \DateTime $endDate
-     * @return Survey
+     * {@inheritdoc}
      */
-    public function setEndDate($endDate)
+    public function setEndDate(\DateTime $endDate)
     {
         $this->endDate = $endDate;
 
@@ -193,9 +170,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Get endDate
-     *
-     * @return \DateTime 
+     * {@inheritdoc}
      */
     public function getEndDate()
     {
@@ -203,10 +178,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Survey
+     * {@inheritdoc}
      */
     public function setSlug($slug)
     {
@@ -216,9 +188,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Get slug
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getSlug()
     {
@@ -226,12 +196,9 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Sets the questions.
-     *
-     * @param ArrayCollection|Question[] $questions
-     * @return Survey
+     * {@inheritdoc}
      */
-    public function setQuestions($questions)
+    public function setQuestions(ArrayCollection $questions)
     {
         foreach ($questions as $question) {
             $question->setSurvey($this);
@@ -241,23 +208,17 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Returns whether the survey has the question or not.
-     *
-     * @param Question $question
-     * @return bool
+     * {@inheritdoc}
      */
-    public function hasQuestion(Question $question)
+    public function hasQuestion(QuestionInterface $question)
     {
         return $this->questions->contains($question);
     }
 
     /**
-     * Adds the question.
-     *
-     * @param Question $question
-     * @return Survey
+     * {@inheritdoc}
      */
-    public function addQuestion(Question $question)
+    public function addQuestion(QuestionInterface $question)
     {
         if (!$this->hasQuestion($question)) {
             $question->setSurvey($this);
@@ -267,12 +228,9 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Removes the question.
-     *
-     * @param Question $question
-     * @return Survey
+     * {@inheritdoc}
      */
-    public function removeQuestion(Question $question)
+    public function removeQuestion(QuestionInterface $question)
     {
         if ($this->hasQuestion($question)) {
             $question->setSurvey(null);
@@ -282,9 +240,7 @@ class Survey implements Core\TimestampableInterface, Core\TaggedEntityInterface
     }
 
     /**
-     * Returns the questions.
-     *
-     * @return ArrayCollection|Question[]
+     * {@inheritdoc}
      */
     public function getQuestions()
     {

@@ -6,7 +6,9 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Ekyna\Bundle\SurveyBundle\Entity\Question"
+    <mapped-superclass
+            name="Ekyna\Bundle\SurveyBundle\Entity\Question"
+            repository-class="Ekyna\Bundle\SurveyBundle\Entity\QuestionRepository"
             table="survey_question">
 
         <id name="id" type="integer" column="id">
@@ -29,11 +31,11 @@
             </order-by>
         </one-to-many>
 
-        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Entity\Survey" field="survey" inversed-by="questions" orphan-removal="true">
+        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Model\SurveyInterface" field="survey" inversed-by="questions" orphan-removal="true">
             <join-column name="survey_id" referenced-column-name="id" nullable="true" on-delete="CASCADE" />
             <gedmo:sortable-group />
         </many-to-one>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

@@ -35,18 +35,15 @@
 
     <class name="Ekyna\Bundle\SurveyBundle\Entity\Question">
         <property name="type">
-            <constraint name="Ekyna\Bundle\SurveyBundle\Validator\Constraints\QuestionType" />
+            <constraint name="NotBlank" />
         </property>
         <property name="content">
             <constraint name="NotBlank" />
         </property>
         <property name="choices">
             <constraint name="Valid" />
-            <constraint name="Count">
-                <option name="min">1</option>
-                <option name="minMessage">ekyna_survey.question.at_least_one_choice</option>
-            </constraint>
         </property>
+        <constraint name="Ekyna\Bundle\SurveyBundle\Validator\Constraints\Question" />
     </class>
 
     <class name="Ekyna\Bundle\SurveyBundle\Entity\Choice">
@@ -75,12 +72,7 @@
         <property name="question">
             <constraint name="NotNull" />
         </property>
-        <property name="choices">
-            <constraint name="Count">
-                <option name="min">1</option>
-                <option name="minMessage">ekyna_survey.answer.at_least_one_choice</option>
-            </constraint>
-        </property>
+        <constraint name="Ekyna\Bundle\SurveyBundle\Validator\Constraints\Answer" />
     </class>
 
 </constraint-mapping>

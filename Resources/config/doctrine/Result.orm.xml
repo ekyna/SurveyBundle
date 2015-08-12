@@ -5,7 +5,9 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Ekyna\Bundle\SurveyBundle\Entity\Result"
+    <mapped-superclass
+            name="Ekyna\Bundle\SurveyBundle\Entity\Result"
+            repository-class="Ekyna\Bundle\SurveyBundle\Entity\ResultRepository"
             table="survey_result">
 
         <id name="id" type="integer" column="id">
@@ -14,19 +16,17 @@
 
         <field name="date" type="datetime" column="date" />
 
-        <!-- TODO extra fields -->
-
-        <one-to-many target-entity="Ekyna\Bundle\SurveyBundle\Entity\Answer" field="answers" mapped-by="result" orphan-removal="true">
+        <one-to-many target-entity="Ekyna\Bundle\SurveyBundle\Model\AnswerInterface" field="answers" mapped-by="result" orphan-removal="true">
             <cascade>
                 <cascade-persist />
                 <cascade-remove />
             </cascade>
         </one-to-many>
 
-        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Entity\Survey" field="survey">
+        <many-to-one target-entity="Ekyna\Bundle\SurveyBundle\Model\SurveyInterface" field="survey">
             <join-column name="survey_id" referenced-column-name="id" nullable="false" on-delete="CASCADE" />
         </many-to-one>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>

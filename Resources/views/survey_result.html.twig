@@ -1,0 +1,39 @@
+<div class="table-responsive">
+    <table class="table table-striped">
+    {% for question in survey.questions -%}
+        <tr>
+            <td class="survey-result-question" colspan="2">
+                <strong>[{{ question.type|survey_answer_type_label|trans }}]</strong> {{ question.content|raw }}
+            </td>
+        </tr>
+        <tr>
+            <td class="survey-result-answer">
+            {% if 0 < question.choices|length %}
+                <ol style="margin-left: 5px;">
+                {% for choice in question.choices -%}
+                    <li style="font-size:14px; line-height:24px;">{{ choice.content|raw }}</li>
+                {%- endfor %}
+                </ol>
+            {% else %}
+                <em>{{ 'ekyna_survey.question.message.input_answer'|trans }}</em>
+            {% endif %}
+            </td>
+            <td class="survey-result-chart">
+            {% if question.chart is not sameas(null) -%}
+                <div id="q-chart-{{ question.id }}" class="survey-result-chart-chart"></div>
+            {%- else -%}
+                <em>{{ 'ekyna_survey.question.message.no_chart'|trans }}</em>
+            {%- endif %}
+            </td>
+        </tr>
+    {%- endfor %}
+    </table>
+</div>
+
+<script type="text/javascript">
+require(['jquery', 'highcharts'], function($) {
+    {% for question in survey.questions %}{% if question.chart is not sameas(null) -%}
+    {{ chart(question.chart) }}
+    {%- endif %}{% endfor %}
+});
+</script>

@@ -35,43 +35,14 @@
                 {{ show_row(path('ekyna_survey_survey_admin_tinymce', identifiers|merge({'surveyId': survey.id})), 'tinymce', 'ekyna_core.field.description') }}
             </div>
             <div class="tab-pane" id="survey-survey-questions">
-                <table class="table table-striped">
-                    {% for question in survey.questions -%}
-                    <tr>
-                        <td colspan="2" style="font-size:16px;line-height:20px; margin-bottom:10px;">
-                            {{ question.content|raw }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="margin-bottom:20px;width:60%;">
-                            <ol style="margin-left: 5px;">
-                                {% for choice in question.choices -%}
-                                    <li style="font-size:14px; line-height:24px;">{{ choice.content|raw }}</li>
-                                {%- endfor %}
-                            </ol>
-                        </td>
-                        <td style="margin-bottom:20px;width:40%;text-align:center;">
-                            {% if question.chart -%}
-                            <div id="q-chart-{{ question.id }}" style="min-width: 350px; height: 160px; margin: 0 auto"></div>
-                            {%- else -%}
-                            <em>Aucune donnée disponible</em> {# TODO trans #}
-                            {%- endif %}
-                        </td>
-                    </tr>
-                    {%- endfor %}
-                </table>
+                {{ render_survey_results(survey) }}
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
 
-{% block javascripts %}
+{% block stylesheets %}
     {{ parent() }}
-    <script src="//code.highcharts.com/4.0.1/highcharts.js"></script>
-    <script type="text/javascript">
-        {% for question in survey.questions %}{% if question.chart -%}
-            {{ chart(question.chart) }}
-        {%- endif %}{% endfor %}
-    </script>
-{% endblock javascripts %}
+    <link href="{{ asset('bundles/ekynasurvey/css/survey-results.css') }}" rel="stylesheet" type="text/css" />
+{% endblock stylesheets %}

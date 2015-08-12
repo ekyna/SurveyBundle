@@ -1,0 +1,27 @@
+.survey-result-question {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+.survey-result-question > strong {
+    float: left;
+    margin-right: 8px;
+}
+
+.survey-result-answers {
+    margin-bottom: 20px;
+    width: 60%;
+}
+
+.survey-result-chart {
+    margin-bottom: 20px;
+    width: 40%;
+    text-align: center;
+}
+
+.survey-result-chart-chart {
+    min-width: 350px;
+    height: 160px;
+    margin: 0 auto;
+}

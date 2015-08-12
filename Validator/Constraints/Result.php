@@ -5,11 +5,19 @@ namespace Ekyna\Bundle\SurveyBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class QuestionType
+ * Class Result
  * @package Ekyna\Bundle\SurveyBundle\Validator\Constraints
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class QuestionType extends Constraint
+class Result extends Constraint
 {
-    public $invalid = 'ekyna_survey.question.type.invalid';
+    public $missingAnswer;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
 }

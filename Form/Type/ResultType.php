@@ -16,16 +16,23 @@ class ResultType extends AbstractType
     /**
      * @var string
      */
+    private $dataClass;
+
+    /**
+     * @var string
+     */
     private $kernelEnvironment;
 
 
     /**
      * Constructor.
      *
+     * @param string $dataClass
      * @param string $environment
      */
-    public function __construct($environment)
+    public function __construct($dataClass, $environment)
     {
+        $this->dataClass = $dataClass;
         $this->kernelEnvironment = $environment;
     }
 
@@ -54,7 +61,7 @@ class ResultType extends AbstractType
         $resolver
             ->setDefaults(array(
                 'label' => false,
-                'data_class' => 'Ekyna\Bundle\SurveyBundle\Entity\Result',
+                'data_class' => $this->dataClass,
             ))
         ;
     }

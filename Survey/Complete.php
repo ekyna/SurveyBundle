@@ -1,9 +1,9 @@
 <?php
 
-namespace Ekyna\Bundle\SurveyBundle\Complete;
+namespace Ekyna\Bundle\SurveyBundle\Survey;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Ekyna\Bundle\SurveyBundle\Entity\Result;
+use Ekyna\Bundle\SurveyBundle\Model\ResultInterface;
 use Ekyna\Bundle\SurveyBundle\Event\ResultEvent;
 use Ekyna\Bundle\SurveyBundle\Event\ResultEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class Complete
- * @package Ekyna\Bundle\SurveyBundle\Complete
+ * @package Ekyna\Bundle\SurveyBundle\Survey
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class Complete
 {
     /**
-     * @var Result
+     * @var ResultInterface
      */
     private $result;
 
@@ -41,13 +41,13 @@ class Complete
     /**
      * Constructor.
      *
-     * @param Result                   $result
+     * @param ResultInterface          $result
      * @param FormInterface            $form
      * @param EntityManagerInterface   $manager
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
-        Result                   $result,
+        ResultInterface          $result,
         FormInterface            $form,
         EntityManagerInterface   $manager,
         EventDispatcherInterface $dispatcher

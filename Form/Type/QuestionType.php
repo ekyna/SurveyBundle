@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\SurveyBundle\Form\Type;
 
-use Ekyna\Bundle\SurveyBundle\Model\QuestionTypes;
+use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,6 +15,29 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class QuestionType extends AbstractType
 {
     /**
+     * @var string
+     */
+    private $dataClass;
+
+    /**
+     * @var AnswerTypeRegistryInterface
+     */
+    private $registry;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string                      $dataClass
+     * @param AnswerTypeRegistryInterface $registry
+     */
+    public function __construct($dataClass, AnswerTypeRegistryInterface $registry)
+    {
+        $this->dataClass = $dataClass;
+        $this->registry  = $registry;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -26,7 +49,7 @@ class QuestionType extends AbstractType
             ))
             ->add('type', 'choice', array(
                 'label' => 'ekyna_core.field.type',
-                'choices' => QuestionTypes::getChoices(),
+                'choices' => $this->registry->getTypeFormChoices(),
             ))
             ->add('position', 'hidden', array(
                 'attr' => array(
@@ -54,7 +77,7 @@ class QuestionType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'data_class' => 'Ekyna\Bundle\SurveyBundle\Entity\Question',
+                'data_class' => $this->dataClass,
             ))
         ;
     }

@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\SurveyBundle\Event;
 
-use Ekyna\Bundle\SurveyBundle\Entity\Result;
+use Ekyna\Bundle\SurveyBundle\Model\ResultInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\Event;
 class ResultEvent extends Event
 {
     /**
-     * @var Result
+     * @var ResultInterface
      */
     private $result;
 
@@ -21,9 +21,9 @@ class ResultEvent extends Event
     /**
      * Constructor.
      *
-     * @param Result $result
+     * @param ResultInterface $result
      */
-    public function __construct(Result $result)
+    public function __construct(ResultInterface $result)
     {
         $this->result = $result;
     }
@@ -31,7 +31,7 @@ class ResultEvent extends Event
     /**
      * Returns the result.
      *
-     * @return Result
+     * @return ResultInterface
      */
     public function getComplete()
     {

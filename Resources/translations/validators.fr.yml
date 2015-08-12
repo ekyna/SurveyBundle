@@ -3,8 +3,11 @@ ekyna_survey:
         invalid_date_range: La date de fin doit être postérieure à la date de début.
         at_least_one_question: Veuillez saisir au moins une question.
     question:
+        invalid_type: Type de question invalide.
+        choices_must_be_empty: Veuillez ne pas saisir de choix pour les question de type "libre".
         at_least_one_choice: Veuillez saisir au moins un choix.
-        type:
-            invalid: Type de question invalide.
     answer:
+        text_value_is_mandatory: Veuillez saisir votre réponse.
+        bool_value_is_mandatory: Veuillez choisir votre réponse.
+        integer_value_is_mandatory: Veuillez saisir un nombre entier.
         at_least_one_choice: Veuillez choisir au moins une réponse.

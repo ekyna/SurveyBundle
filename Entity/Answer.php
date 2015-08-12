@@ -3,33 +3,41 @@
 namespace Ekyna\Bundle\SurveyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
+use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
+use Ekyna\Bundle\SurveyBundle\Model\ResultInterface;
 
 /**
  * Class Answer
  * @package Ekyna\Bundle\SurveyBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Answer
+class Answer implements AnswerInterface
 {
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var Result
+     * @var ResultInterface
      */
-    private $result;
+    protected $result;
 
     /**
-     * @var Question
+     * @var QuestionInterface
      */
-    private $question;
+    protected $question;
 
     /**
      * @var ArrayCollection|Choice[]
      */
-    private $choices;
+    protected $choices;
+
+    /**
+     * @var string
+     */
+    protected $value;
 
 
     /**
@@ -41,9 +49,7 @@ class Answer
     }
 
     /**
-     * Returns the id.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -51,21 +57,16 @@ class Answer
     }
 
     /**
-     * Sets the result.
-     *
-     * @param Result $result
-     * @return Answer
+     * {@inheritdoc}
      */
-    public function setResult(Result $result = null)
+    public function setResult(ResultInterface $result = null)
     {
         $this->result = $result;
         return $this;
     }
 
     /**
-     * Returns the result.
-     *
-     * @return Result
+     * {@inheritdoc}
      */
     public function getResult()
     {
@@ -73,21 +74,16 @@ class Answer
     }
 
     /**
-     * Sets the question.
-     *
-     * @param Question $question
-     * @return Answer
+     * {@inheritdoc}
      */
-    public function setQuestion(Question $question)
+    public function setQuestion(QuestionInterface $question)
     {
         $this->question = $question;
         return $this;
     }
 
     /**
-     * Returns the question.
-     *
-     * @return Question
+     * {@inheritdoc}
      */
     public function getQuestion()
     {
@@ -95,10 +91,7 @@ class Answer
     }
 
     /**
-     * Sets the choices (multiple).
-     *
-     * @param ArrayCollection $choices
-     * @return Answer
+     * {@inheritdoc}
      */
     public function setChoices(ArrayCollection $choices)
     {
@@ -107,10 +100,7 @@ class Answer
     }
 
     /**
-     * Returns whether the answer has the choice or not.
-     *
-     * @param Choice $choice
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasChoice(Choice $choice)
     {
@@ -118,10 +108,7 @@ class Answer
     }
 
     /**
-     * Adds the choice.
-     *
-     * @param Choice $choice
-     * @return Answer
+     * {@inheritdoc}
      */
     public function addChoice(Choice $choice)
     {
@@ -132,10 +119,7 @@ class Answer
     }
 
     /**
-     * Remove the choice.
-     *
-     * @param Choice $choice
-     * @return Answer
+     * {@inheritdoc}
      */
     public function removeChoice(Choice $choice)
     {
@@ -146,9 +130,7 @@ class Answer
     }
 
     /**
-     * Returns the choices (multiple).
-     *
-     * @return Choice[]
+     * {@inheritdoc}
      */
     public function getChoices()
     {
@@ -156,10 +138,7 @@ class Answer
     }
 
     /**
-     * Sets the choice (single).
-     *
-     * @param Choice $choice
-     * @return Answer
+     * {@inheritdoc}
      */
     public function setChoice(Choice $choice)
     {
@@ -171,9 +150,7 @@ class Answer
     }
 
     /**
-     * Returns the choice (single).
-     *
-     * @return Choice
+     * {@inheritdoc}
      */
     public function getChoice()
     {
@@ -181,5 +158,22 @@ class Answer
             return $this->choices->first();
         }
         return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getValue()
+    {
+        return $this->value;
     }
 }

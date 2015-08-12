@@ -3,33 +3,36 @@
 namespace Ekyna\Bundle\SurveyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
+use Ekyna\Bundle\SurveyBundle\Model\ResultInterface;
+use Ekyna\Bundle\SurveyBundle\Model\SurveyInterface;
 
 /**
  * Class Result
  * @package Ekyna\Bundle\SurveyBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Result
+class Result implements ResultInterface
 {
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var \DateTime
      */
-    private $date;
+    protected $date;
 
     /**
-     * @var Survey
+     * @var SurveyInterface
      */
-    private $survey;
+    protected $survey;
 
     /**
-     * @var ArrayCollection|Answer[]
+     * @var ArrayCollection|AnswerInterface[]
      */
-    private $answers;
+    protected $answers;
 
 
     /**
@@ -41,9 +44,7 @@ class Result
     }
 
     /**
-     * Returns the id.
-     *
-     * @return int
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -51,10 +52,7 @@ class Result
     }
 
     /**
-     * Sets the date.
-     *
-     * @param \DateTime $date
-     * @return Result
+     * {@inheritdoc}
      */
     public function setDate(\DateTime $date)
     {
@@ -63,9 +61,7 @@ class Result
     }
 
     /**
-     * Returns the date.
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getDate()
     {
@@ -73,21 +69,16 @@ class Result
     }
 
     /**
-     * Sets the survey.
-     *
-     * @param Survey $survey
-     * @return Result
+     * {@inheritdoc}
      */
-    public function setSurvey(Survey $survey)
+    public function setSurvey(SurveyInterface $survey)
     {
         $this->survey = $survey;
         return $this;
     }
 
     /**
-     * Returns the survey.
-     *
-     * @return Survey
+     * {@inheritdoc}
      */
     public function getSurvey()
     {
@@ -95,10 +86,7 @@ class Result
     }
 
     /**
-     * Sets the answers.
-     *
-     * @param ArrayCollection $answers
-     * @return Result
+     * {@inheritdoc}
      */
     public function setAnswers(ArrayCollection $answers)
     {
@@ -107,23 +95,17 @@ class Result
     }
 
     /**
-     * Returns whether the result has the answer.
-     *
-     * @param Answer $answer
-     * @return bool
+     * {@inheritdoc}
      */
-    public function hasAnswer(Answer $answer)
+    public function hasAnswer(AnswerInterface $answer)
     {
         return $this->answers->contains($answer);
     }
 
     /**
-     * Adds the answer.
-     *
-     * @param Answer $answer
-     * @return Result
+     * {@inheritdoc}
      */
-    public function addAnswer(Answer $answer)
+    public function addAnswer(AnswerInterface $answer)
     {
         if (!$this->hasAnswer($answer)) {
             $answer->setResult($this);
@@ -133,12 +115,9 @@ class Result
     }
 
     /**
-     * Removes the answer.
-     *
-     * @param Answer $answer
-     * @return Result
+     * {@inheritdoc}
      */
-    public function removeAnswer(Answer $answer)
+    public function removeAnswer(AnswerInterface $answer)
     {
         if ($this->removeAnswer($answer)) {
             $answer->setResult(null);
@@ -148,9 +127,7 @@ class Result
     }
 
     /**
-     * Returns the answers.
-     *
-     * @return ArrayCollection|Answer[]
+     * {@inheritdoc}
      */
     public function getAnswers()
     {
