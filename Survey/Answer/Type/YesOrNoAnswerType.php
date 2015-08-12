@@ -27,6 +27,8 @@ class YesOrNoAnswerType implements AnswerTypeInterface
                 '1' => 'ekyna_core.value.yes',
                 '0' => 'ekyna_core.value.no',
             ),
+            'expanded' => true,
+            'attr' => array('class' => 'inline'),
         ));
     }
 

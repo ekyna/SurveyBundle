@@ -4,19 +4,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            {% include "EkynaCoreBundle:Ui:flashes.html.twig" %}
+            {{ cms_flashes() }}
+            {{ cms_breadcrumb() }}
+        </div>
+    </div>
 
-            {% if survey and form %}
+    <div class="row">
+        <div class="col-md-12">
+            {% if survey is defined and form is defined %}
             <h1>{{ survey.title }}</h1>
             <div>{{ survey.description|raw }}</div>
             <hr>
-            <form action="{{ path('ekyna_survey_example_complete') }}" method="post">
+            {{ form_start(form) }}
                 {{ form_errors(form) }}
                 {{ form_widget(form) }}
                 {{ form_rest(form) }}
-            </form>
+            {{ form_end(form) }}
             {% else %}
-            <p class="alert alert-info">There is currently no survey available. Try again later !</p>
+            <p class="alert alert-info">There is currently no survey available. Please, try again later !</p>
             {% endif %}
         </div>
     </div>
