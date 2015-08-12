@@ -30,11 +30,15 @@ class ResultValidator extends ConstraintValidator
          * @var ResultInterface $result
          * @var Result          $constraint
          */
-
-        // TODO check that all questions has his answer
-
-        /*if ($type !== QuestionTypes::TEXT && 0 === $question->getChoices()->count()) {
-            $this->context->addViolationAt('choices', $constraint->atLeastOneChoice);
-        }*/
+        $answers = $result->getAnswers();
+        $questions = $result->getSurvey()->getQuestions();
+        foreach ($questions as $question) {
+            foreach ($answers as $answer) {
+                if ($answer->getQuestion() === $question) {
+                    continue 2;
+                }
+            }
+            $this->context->addViolation('ekyna_survey.result.incomplete');
+        }
     }
 }

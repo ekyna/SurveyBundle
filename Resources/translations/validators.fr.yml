@@ -6,6 +6,8 @@ ekyna_survey:
         invalid_type: Type de question invalide.
         choices_must_be_empty: Veuillez ne pas saisir de choix pour les question de type "libre".
         at_least_one_choice: Veuillez saisir au moins un choix.
+    result:
+        incomplete: Vous n'avez pas répondu à toutes les questions.
     answer:
         text_value_is_mandatory: Veuillez saisir votre réponse.
         bool_value_is_mandatory: Veuillez choisir votre réponse.

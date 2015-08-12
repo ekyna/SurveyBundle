@@ -23,7 +23,7 @@ class MultipleChoiceAnswerType implements AnswerTypeInterface
      */
     public function buildForm(FormInterface $form, QuestionInterface $question)
     {
-        $form->add('choice', 'entity', array(
+        $form->add('choices', 'entity', array(
             'label' => $question->getContent(),
             'choices' => $question->getChoices()->toArray(),
             'class' => 'Ekyna\Bundle\SurveyBundle\Entity\Choice',

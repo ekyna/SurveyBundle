@@ -79,7 +79,6 @@ class Complete
         if ($request->getMethod() === 'POST') {
             $this->form->handleRequest($request);
             if ($this->form->isValid()) {
-
                 $event = new ResultEvent($this->result);
 
                 $this->dispatcher->dispatch(ResultEvents::PRE_PERSIST, $event);

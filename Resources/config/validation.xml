@@ -63,6 +63,7 @@
         <property name="answers">
             <constraint name="Valid" />
         </property>
+        <constraint name="Ekyna\Bundle\SurveyBundle\Validator\Constraints\Result" />
     </class>
 
     <class name="Ekyna\Bundle\SurveyBundle\Entity\Answer">
