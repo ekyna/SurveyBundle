@@ -13,7 +13,7 @@ class Question extends Constraint
 {
     public $invalidType = 'ekyna_survey.question.invalid_type';
     public $choicesMustBeEmpty = 'ekyna_survey.question.choices_must_be_empty';
-    public $atLeastOneChoice = 'ekyna_survey.question.at_least_one_choice';
+    public $atLeastTwoChoice = 'ekyna_survey.question.at_least_two_choice';
 
     /**
      * {@inheritdoc}
