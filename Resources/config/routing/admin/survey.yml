@@ -30,6 +30,13 @@ ekyna_survey_survey_admin_edit:
         _method: GET|POST
         surveyId:  \d+
 
+ekyna_survey_survey_admin_reset:
+    path: /{surveyId}/reset
+    defaults: { _controller: "ekyna_survey.survey.controller:resetAction" }
+    requirements:
+        _method: GET|POST
+        surveyId:  \d+
+
 ekyna_survey_survey_admin_tinymce:
     path: /{surveyId}/tinymce
     defaults: { _controller: "ekyna_survey.survey.controller:tinymceAction", field: description }

@@ -1,0 +1,20 @@
+{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
+
+{% block title %}
+    <h1>{{ 'ekyna_survey.survey.header.reset'|trans({'%name%': survey})|raw }}</h1>
+{% endblock title %}
+
+{% block actions %}
+    {{ admin_resource_btn(survey, 'list') }}
+    {{ admin_resource_btn(survey, 'new') }}
+{% endblock actions %}
+
+{% block main %}
+    {{ form_start(form) }}
+    <div class="form-body">
+        {{ bootstrap_set_style('horizontal') }}
+        {{ bootstrap_set_col_size('md') }}
+        {{ form_widget(form) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock main %}
