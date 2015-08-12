@@ -24,8 +24,8 @@ class YesOrNoAnswerType implements AnswerTypeInterface
         $form->add('value', 'choice', array(
             'label' => $question->getContent(),
             'choices' => array(
-                '1' => 'ekyna_core.value.yes',
-                '0' => 'ekyna_core.value.no',
+                'yes' => 'ekyna_core.value.yes',
+                'no' => 'ekyna_core.value.no',
             ),
             'expanded' => true,
             'attr' => array('class' => 'inline'),
@@ -37,7 +37,7 @@ class YesOrNoAnswerType implements AnswerTypeInterface
      */
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context)
     {
-        if (!in_array($answer->getValue(), array('0', '1'), true)) {
+        if (!in_array($answer->getValue(), array('no', 'yes'), true)) {
             $context->addViolationAt('value', 'ekyna_survey.answer.bool_value_is_mandatory');
         }
     }
@@ -63,7 +63,7 @@ class YesOrNoAnswerType implements AnswerTypeInterface
      */
     public function loadFixtureData(AnswerInterface $answer, $faker)
     {
-        $answer->setValue(50 < rand(0, 100) ? '0' : '1');
+        $answer->setValue(50 < rand(0, 100) ? 'no' : 'yes');
     }
 
     /**

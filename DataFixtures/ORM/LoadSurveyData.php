@@ -7,7 +7,6 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Bundle\SurveyBundle\Entity\Choice;
-use Ekyna\Bundle\SurveyBundle\Entity\Question;
 use Faker\Factory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,7 +37,8 @@ class LoadSurveyData extends AbstractFixture implements FixtureInterface, Ordere
     public function load(ObjectManager $om)
     {
         $faker = Factory::create($this->container->getParameter('hautelook_alice.locale'));
-        $repository = $this->container->get('ekyna_survey.survey.repository');
+        $surveyRepository = $this->container->get('ekyna_survey.survey.repository');
+        $questionRepository = $this->container->get('ekyna_survey.question.repository');
         $types = $this->container->get('ekyna_survey.answer_type.registry')->getTypes();
 
         // Creates 3 surveys
@@ -51,7 +51,8 @@ class LoadSurveyData extends AbstractFixture implements FixtureInterface, Ordere
             $endDate = clone $startDate;
             $endDate->modify('+2 weeks');
 
-            $survey = $repository->createNew();
+            /** @var \Ekyna\Bundle\SurveyBundle\Model\SurveyInterface $survey */
+            $survey = $surveyRepository->createNew();
             $survey
                 ->setName(sprintf('Survey %d test name', $s))
                 ->setTitle($faker->sentence())
@@ -67,7 +68,8 @@ class LoadSurveyData extends AbstractFixture implements FixtureInterface, Ordere
                 /** @var \Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface $type */
                 $type = $faker->randomElement($types);
 
-                $question = new Question();
+                /** @var \Ekyna\Bundle\SurveyBundle\Model\QuestionInterface $question */
+                $question = $questionRepository->createNew();
                 $question
                     ->setType($type->getName())
                     ->setContent(rtrim($faker->paragraph(rand(1,3)), '.') . ' ?')
@@ -78,9 +80,7 @@ class LoadSurveyData extends AbstractFixture implements FixtureInterface, Ordere
                     $cLimit = rand(2, 6);
                     for ($c = 0; $c < $cLimit; $c++) {
                         $choice = new Choice();
-                        $choice
-                            ->setContent($faker->sentence());
-
+                        $choice->setContent($faker->sentence());
                         $question->addChoice($choice);
                     }
                 }
