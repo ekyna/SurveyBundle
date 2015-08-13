@@ -12,11 +12,11 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
- * Class MultipleChoiceAnswerType
+ * Class MultipleChoicesAnswerType
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class MultipleChoiceAnswerType implements AnswerTypeInterface
+class MultipleChoicesAnswerType implements AnswerTypeInterface
 {
     /**
      * {@inheritdoc}
@@ -130,7 +130,7 @@ class MultipleChoiceAnswerType implements AnswerTypeInterface
      */
     public function getLabel()
     {
-        return 'ekyna_survey.question.type.multiple_choice';
+        return 'ekyna_survey.question.type.multiple_choices';
     }
 
     /**
@@ -138,6 +138,6 @@ class MultipleChoiceAnswerType implements AnswerTypeInterface
      */
     public function getName()
     {
-        return 'multiple_choice';
+        return 'multiple_choices';
     }
 }

@@ -24,7 +24,7 @@
         <service id="ekyna_survey.answer_type.single_choice" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\SingleChoiceAnswerType">
             <tag name="ekyna_survey.answer_type" />
         </service>
-        <service id="ekyna_survey.answer_type.multiple_choice" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\MultipleChoiceAnswerType">
+        <service id="ekyna_survey.answer_type.multiple_choices" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\MultipleChoicesAnswerType">
             <tag name="ekyna_survey.answer_type" />
         </service>
         <service id="ekyna_survey.answer_type.yes_or_no" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\YesOrNoAnswerType">

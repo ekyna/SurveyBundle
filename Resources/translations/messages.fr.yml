@@ -33,7 +33,7 @@ ekyna_survey:
             plural: Questions
         type:
             single_choice: Choix unique
-            multiple_choice: Choix multiples
+            multiple_choices: Choix multiples
             yes_or_no: Oui ou Non
             text: Texte
             integer: Nombre
