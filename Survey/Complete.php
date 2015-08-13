@@ -59,6 +59,16 @@ class Complete
     }
 
     /**
+     * Returns the result.
+     *
+     * @return ResultInterface
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
      * Returns the form.
      *
      * @return FormInterface
