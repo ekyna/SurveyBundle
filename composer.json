@@ -23,10 +23,9 @@
 	},
 	"autoload" : {
 		"psr-0" : {
-			"Ekyna\\Bundle\\SurveyBundle" : ""
+			"Ekyna\\Bundle\\SurveyBundle\\" : ""
 		}
 	},
-	"target-dir" : "Ekyna/Bundle/SurveyBundle",
 	"extra" : {
 		"branch-alias" : {
 			"dev-master" : "0.3.x-dev"
