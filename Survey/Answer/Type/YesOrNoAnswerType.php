@@ -7,7 +7,7 @@ use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class YesOrNoAnswerType
@@ -21,15 +21,15 @@ class YesOrNoAnswerType implements AnswerTypeInterface
      */
     public function buildForm(FormInterface $form, QuestionInterface $question)
     {
-        $form->add('value', 'choice', array(
+        $form->add('value', 'choice', [
             'label' => $question->getContent(),
-            'choices' => array(
+            'choices' => [
                 'yes' => 'ekyna_core.value.yes',
                 'no' => 'ekyna_core.value.no',
-            ),
+            ],
             'expanded' => true,
-            'attr' => array('class' => 'inline'),
-        ));
+            'attr' => ['class' => 'inline'],
+        ]);
     }
 
     /**
@@ -37,8 +37,12 @@ class YesOrNoAnswerType implements AnswerTypeInterface
      */
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context)
     {
-        if (!in_array($answer->getValue(), array('no', 'yes'), true)) {
-            $context->addViolationAt('value', 'ekyna_survey.answer.bool_value_is_mandatory');
+        if (!in_array($answer->getValue(), ['no', 'yes'], true)) {
+            $context
+                ->buildViolation('ekyna_survey.answer.bool_value_is_mandatory')
+                ->atPath('value')
+                ->addViolation()
+            ;
         }
     }
 

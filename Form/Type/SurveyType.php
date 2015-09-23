@@ -18,25 +18,25 @@ class SurveyType extends ResourceFormType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
+            ->add('name', 'text', [
                 'label' => 'ekyna_core.field.name',
-            ))
-            ->add('title', 'text', array(
+            ])
+            ->add('title', 'text', [
                 'label' => 'ekyna_core.field.title',
-            ))
-            ->add('description', 'tinymce', array(
+            ])
+            ->add('description', 'tinymce', [
                 'label' => 'ekyna_core.field.description',
                 'theme' => 'advanced',
-            ))
-            ->add('startDate', 'datetime', array(
+            ])
+            ->add('startDate', 'datetime', [
                 'label' => 'ekyna_core.field.start_date',
                 'format' => 'dd/MM/yyyy',
-            ))
-            ->add('endDate', 'datetime', array(
+            ])
+            ->add('endDate', 'datetime', [
                 'label' => 'ekyna_core.field.end_date',
                 'format' => 'dd/MM/yyyy',
-            ))
-            ->add('questions', 'ekyna_collection', array(
+            ])
+            ->add('questions', 'ekyna_collection', [
                 'label'           => false,
                 'type'            => 'ekyna_survey_question',
                 'allow_add'       => true,
@@ -46,7 +46,7 @@ class SurveyType extends ResourceFormType
                 'sub_widget_col'  => 11,
                 'button_col'      => 1,
                 'prototype_name'  => '__qname__',
-            ))
+            ])
         ;
     }
 

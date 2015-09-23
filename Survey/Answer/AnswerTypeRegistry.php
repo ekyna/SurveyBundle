@@ -27,7 +27,7 @@ class AnswerTypeRegistry implements AnswerTypeRegistryInterface
      *
      * @param AnswerTypeInterface[] $types
      */
-    public function __construct(array $types = array())
+    public function __construct(array $types = [])
     {
         $this->types = [];
         foreach ($types as $type) {
@@ -87,7 +87,7 @@ class AnswerTypeRegistry implements AnswerTypeRegistryInterface
     public function getTypeFormChoices()
     {
         if (null === $this->formChoices) {
-            $this->formChoices = array();
+            $this->formChoices = [];
             foreach ($this->types as $type) {
                 $this->formChoices[$type->getName()] = $type->getLabel();
             }

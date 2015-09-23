@@ -7,7 +7,7 @@ use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class TextAnswerType
@@ -21,9 +21,9 @@ class TextAnswerType implements AnswerTypeInterface
      */
     public function buildForm(FormInterface $form, QuestionInterface $question)
     {
-        $form->add('value', 'text', array(
+        $form->add('value', 'text', [
             'label' => $question->getContent(),
-        ));
+        ]);
     }
 
     /**
@@ -32,7 +32,11 @@ class TextAnswerType implements AnswerTypeInterface
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context)
     {
         if (0 === strlen($answer->getValue())) {
-            $context->addViolationAt('value', 'ekyna_survey.answer.text_value_is_mandatory');
+            $context
+                ->buildViolation('ekyna_survey.answer.text_value_is_mandatory')
+                ->atPath('value')
+                ->addViolation()
+            ;
         }
     }
 

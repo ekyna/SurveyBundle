@@ -66,7 +66,7 @@ class CompleteFactory
      * @param array $formOptions
      * @return Complete
      */
-    public function get(Survey $survey, array $formOptions = array())
+    public function get(Survey $survey, array $formOptions = [])
     {
         $result = $this->resultRepository->createNew();
         $result

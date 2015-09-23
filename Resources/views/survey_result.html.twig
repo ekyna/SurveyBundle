@@ -19,7 +19,7 @@
             {% endif %}
             </td>
             <td class="survey-result-chart">
-            {% if question.chart is not sameas(null) -%}
+            {% if question.chart is not same as(null) -%}
                 <div id="q-chart-{{ question.id }}" class="survey-result-chart-chart"></div>
             {%- else -%}
                 <em>{{ 'ekyna_survey.question.message.no_chart'|trans }}</em>
@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
 require(['jquery', 'highcharts'], function($) {
-    {% for question in survey.questions %}{% if question.chart is not sameas(null) -%}
+    {% for question in survey.questions %}{% if question.chart is not same as(null) -%}
     {{ chart(question.chart) }}
     {%- endif %}{% endfor %}
 });

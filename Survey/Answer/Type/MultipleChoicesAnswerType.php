@@ -9,7 +9,7 @@ use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class MultipleChoicesAnswerType
@@ -23,13 +23,13 @@ class MultipleChoicesAnswerType implements AnswerTypeInterface
      */
     public function buildForm(FormInterface $form, QuestionInterface $question)
     {
-        $form->add('choices', 'entity', array(
+        $form->add('choices', 'entity', [
             'label' => $question->getContent(),
             'choices' => $question->getChoices()->toArray(),
             'class' => 'Ekyna\Bundle\SurveyBundle\Entity\Choice',
             'expanded' => true,
             'multiple' => true,
-        ));
+        ]);
     }
 
     /**
@@ -38,7 +38,11 @@ class MultipleChoicesAnswerType implements AnswerTypeInterface
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context)
     {
         if ($answer->getChoices()->count() === 0) {
-            $context->addViolationAt('value', 'ekyna_survey.answer.at_least_one_choice');
+            $context
+                ->buildViolation('ekyna_survey.answer.at_least_one_choice')
+                ->atPath('choices')
+                ->addViolation()
+            ;
         }
     }
 
@@ -60,7 +64,7 @@ class MultipleChoicesAnswerType implements AnswerTypeInterface
             ;
             $total += $count;
 
-            $data[] = array((string) ($choice->getPosition()+1), intval($count));
+            $data[] = [(string) ($choice->getPosition()+1), intval($count)];
         }
 
         // No answers : abort
@@ -79,28 +83,28 @@ class MultipleChoicesAnswerType implements AnswerTypeInterface
 
         $ob->chart->renderTo('q-chart-'.$question->getId());
         $ob->chart->type('pie');
-        $ob->chart->spacing(array(0,0,0,0));
+        $ob->chart->spacing([0,0,0,0]);
 
         $ob->plotOptions->series(
-            array(
-                'dataLabels' => array(
+            [
+                'dataLabels' => [
                     'enabled' => true,
                     'format' => '{point.name}: {point.y:.1f}%'
-                )
-            )
+                ]
+            ]
         );
 
         $ob->tooltip->headerFormat('');
         $ob->tooltip->pointFormat('<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>');
 
         $ob->series(
-            array(
-                array(
+            [
+                [
                     'name' => 'Répartition des choix',
                     'colorByPoint' => true,
                     'data' => $data
-                )
-            )
+                ]
+            ]
         );
 
         $question->setChart($ob);

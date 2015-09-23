@@ -12,4 +12,5 @@ ekyna_survey:
         text_value_is_mandatory: Veuillez saisir votre réponse.
         bool_value_is_mandatory: Veuillez choisir votre réponse.
         integer_value_is_mandatory: Veuillez saisir un nombre entier.
+        choice_is_mandatory: Veuillez choisir une réponse.
         at_least_one_choice: Veuillez choisir au moins une réponse.

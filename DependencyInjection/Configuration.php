@@ -42,11 +42,11 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->variableNode('templates')->defaultValue(array(
+                                ->variableNode('templates')->defaultValue([
                                     '_form.html' => 'EkynaSurveyBundle:Admin/Survey:_form.html',
                                     'show.html'  => 'EkynaSurveyBundle:Admin/Survey:show.html',
                                     'reset.html'  => 'EkynaSurveyBundle:Admin/Survey:reset.html',
-                                ))->end()
+                                ])->end()
                                 ->scalarNode('parent')->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\SurveyBundle\Entity\Survey')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\SurveyBundle\Controller\Admin\SurveyController')->end()

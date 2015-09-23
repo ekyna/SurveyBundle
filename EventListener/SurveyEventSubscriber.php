@@ -50,8 +50,8 @@ class SurveyEventSubscriber implements EventSubscriberInterface
      */
     static public function getSubscribedEvents()
     {
-        return array(
-            SurveyEvents::PRE_UPDATE => array('onPreUpdate', -1024),
-        );
+        return [
+            SurveyEvents::PRE_UPDATE => ['onPreUpdate', -1024],
+        ];
     }
 }

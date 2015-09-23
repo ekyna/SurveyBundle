@@ -7,7 +7,7 @@ use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Class IntegerAnswerType
@@ -21,9 +21,9 @@ class IntegerAnswerType implements AnswerTypeInterface
      */
     public function buildForm(FormInterface $form, QuestionInterface $question)
     {
-        $form->add('value', 'integer', array(
+        $form->add('value', 'integer', [
             'label' => $question->getContent(),
-        ));
+        ]);
     }
 
     /**
@@ -32,7 +32,11 @@ class IntegerAnswerType implements AnswerTypeInterface
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context)
     {
         if (!ctype_digit(strval($answer->getValue())) && 0 > $answer->getValue()) {
-            $context->addViolationAt('value', 'ekyna_survey.answer.integer_value_is_mandatory');
+            $context
+                ->buildViolation('ekyna_survey.answer.integer_value_is_mandatory')
+                ->atPath('value')
+                ->addViolation()
+            ;
         }
     }
 

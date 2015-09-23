@@ -76,9 +76,9 @@ class SurveyController extends ResourceController
 
         return $this->render(
             $this->config->getTemplate('reset.html'),
-            $context->getTemplateVars(array(
+            $context->getTemplateVars([
                 'form' => $form->createView()
-            ))
+            ])
         );
     }
 
@@ -109,21 +109,21 @@ class SurveyController extends ResourceController
         }
 
         $form = $this
-            ->createFormBuilder(null, array(
+            ->createFormBuilder(null, [
                 'action' => $action,
-                'attr' => array('class' => 'form-horizontal'),
+                'attr' => ['class' => 'form-horizontal'],
                 'method' => 'POST',
                 'admin_mode' => true,
                 '_redirect_enabled' => true,
-            ))
-            ->add('confirm', 'checkbox', array(
+            ])
+            ->add('confirm', 'checkbox', [
                 'label' => 'ekyna_survey.survey.message.reset_confirm',
-                'attr' => array('align_with_widget' => true),
+                'attr' => ['align_with_widget' => true],
                 'required' => true,
-                'constraints' => array(
+                'constraints' => [
                     new Constraints\True(),
-                )
-            ))
+                ]
+            ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
                     'resetAndList' => [

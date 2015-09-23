@@ -4,7 +4,6 @@ namespace Ekyna\Bundle\SurveyBundle\Controller;
 
 use Ekyna\Bundle\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ExampleController
@@ -24,11 +23,11 @@ class ExampleController extends Controller
         $survey = $this->get('ekyna_survey.survey.repository')->findCurrent();
 
         if (null !== $survey) {
-            $complete = $this->get('ekyna_survey.complete_factory')->get($survey, array(
+            $complete = $this->get('ekyna_survey.complete_factory')->get($survey, [
                 'action' => $this->generateUrl('ekyna_survey_example_complete'),
                 'method' => 'post',
-                'attr' => array('class' => 'form'),
-            ));
+                'attr' => ['class' => 'form'],
+            ]);
             if ($complete->handleRequest($request)) {
                 $this->addFlash('Bravo !', 'success');
 
@@ -39,9 +38,9 @@ class ExampleController extends Controller
             $formView = null;
         }
 
-        return $this->render('EkynaSurveyBundle:Example:complete.html.twig', array(
+        return $this->render('EkynaSurveyBundle:Example:complete.html.twig', [
             'survey' => $survey,
             'form'   => $formView,
-        ));
+        ]);
     }
 }

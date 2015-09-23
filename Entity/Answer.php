@@ -145,7 +145,7 @@ class Answer implements AnswerInterface
         foreach ($this->choices as $choice) {
             $this->choices->removeElement($choice);
         }
-        $this->choices = new ArrayCollection(array($choice));
+        $this->choices = new ArrayCollection([$choice]);
         return $this;
     }
 

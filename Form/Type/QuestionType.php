@@ -5,7 +5,7 @@ namespace Ekyna\Bundle\SurveyBundle\Form\Type;
 use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeRegistryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class QuestionType
@@ -43,20 +43,20 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', 'tinymce', array(
+            ->add('content', 'tinymce', [
                 'label' => 'ekyna_core.field.content',
                 'theme' => 'simple',
-            ))
-            ->add('type', 'choice', array(
+            ])
+            ->add('type', 'choice', [
                 'label' => 'ekyna_core.field.type',
                 'choices' => $this->registry->getTypeFormChoices(),
-            ))
-            ->add('position', 'hidden', array(
-                'attr' => array(
+            ])
+            ->add('position', 'hidden', [
+                'attr' => [
                     'data-collection-role' => 'position',
-                ),
-            ))
-            ->add('choices', 'ekyna_collection', array(
+                ],
+            ])
+            ->add('choices', 'ekyna_collection', [
                 'label'           => 'ekyna_survey.choice.label.plural',
                 'type'            => 'ekyna_survey_choice',
                 'allow_add'       => true,
@@ -66,19 +66,19 @@ class QuestionType extends AbstractType
                 'sub_widget_col'  => 9,
                 'button_col'      => 3,
                 'prototype_name'  => '__rname__',
-            ))
+            ])
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'data_class' => $this->dataClass,
-            ))
+            ])
         ;
     }
 

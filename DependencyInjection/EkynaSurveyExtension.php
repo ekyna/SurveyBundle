@@ -31,9 +31,9 @@ class EkynaSurveyExtension extends AbstractExtension
         $bundles = $container->getParameter('kernel.bundles');
 
         if (array_key_exists('AsseticBundle', $bundles)) {
-            $container->prependExtensionConfig('assetic', array(
-                'bundles' => array('EkynaSurveyBundle')
-            ));
+            $container->prependExtensionConfig('assetic', [
+                'bundles' => ['EkynaSurveyBundle']
+            ]);
         }
     }
 }

@@ -3,7 +3,6 @@
 namespace Ekyna\Bundle\SurveyBundle\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ekyna\Bundle\SurveyBundle\Entity\Answer;
 
 /**
  * Interface ResultInterface

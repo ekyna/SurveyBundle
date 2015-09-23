@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Interface AnswerTypeInterface

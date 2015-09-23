@@ -30,11 +30,11 @@ class EkynaSurveyBundle extends AbstractBundle
      */
     protected function getModelInterfaces()
     {
-        return array(
+        return [
             'Ekyna\Bundle\SurveyBundle\Model\SurveyInterface'   => 'ekyna_survey.survey.class',
             'Ekyna\Bundle\SurveyBundle\Model\QuestionInterface' => 'ekyna_survey.question.class',
             'Ekyna\Bundle\SurveyBundle\Model\ResultInterface'   => 'ekyna_survey.result.class',
             'Ekyna\Bundle\SurveyBundle\Model\AnswerInterface'   => 'ekyna_survey.answer.class',
-        );
+        ];
     }
 }

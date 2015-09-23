@@ -54,9 +54,9 @@ class SurveyExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('survey_answer_type_label', array($this, 'getAnswerTypeLabel')),
-        );
+        return [
+            new \Twig_SimpleFilter('survey_answer_type_label', [$this, 'getAnswerTypeLabel']),
+        ];
     }
 
     /**
@@ -64,9 +64,9 @@ class SurveyExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('render_survey_results',  array($this, 'renderSurveyResults'), array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('render_survey_results',  [$this, 'renderSurveyResults'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -92,7 +92,7 @@ class SurveyExtension extends \Twig_Extension
     {
         $this->chartLoader->loadSurveyCharts($survey);
 
-        return $this->environment->render($template, array('survey' => $survey));
+        return $this->environment->render($template, ['survey' => $survey]);
     }
 
     /**

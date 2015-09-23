@@ -2,13 +2,10 @@
 
 namespace Ekyna\Bundle\SurveyBundle\DataFixtures\ORM;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Ekyna\Bundle\SurveyBundle\Entity\Answer;
-use Ekyna\Bundle\SurveyBundle\Model\QuestionTypes;
 use Faker\Factory;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

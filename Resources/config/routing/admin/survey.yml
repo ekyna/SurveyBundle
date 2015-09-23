@@ -1,53 +1,50 @@
 ekyna_survey_survey_admin_home:
     path: ""
     defaults: { _controller: "ekyna_survey.survey.controller:homeAction" }
-    requirements:
-        _method: GET
+    methods: [GET]
 
 ekyna_survey_survey_admin_list:
     path: /list
     defaults: { _controller: "ekyna_survey.survey.controller:listAction" }
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
 
 ekyna_survey_survey_admin_new:
     path: /new
     defaults: { _controller: "ekyna_survey.survey.controller:newAction" }
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
 
 ekyna_survey_survey_admin_show:
     path: /{surveyId}/show
     defaults: { _controller: "ekyna_survey.survey.controller:showAction" }
+    methods: [GET]
     requirements:
-        _method: GET
-        surveyId:  \d+
+        surveyId: \d+
 
 ekyna_survey_survey_admin_edit:
     path: /{surveyId}/edit
     defaults: { _controller: "ekyna_survey.survey.controller:editAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
-        surveyId:  \d+
+        surveyId: \d+
 
 ekyna_survey_survey_admin_reset:
     path: /{surveyId}/reset
     defaults: { _controller: "ekyna_survey.survey.controller:resetAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
-        surveyId:  \d+
+        surveyId: \d+
 
 ekyna_survey_survey_admin_tinymce:
     path: /{surveyId}/tinymce
     defaults: { _controller: "ekyna_survey.survey.controller:tinymceAction", field: description }
+    methods: [GET]
     requirements:
-        _method: GET
-        surveyId:  \d+
+        surveyId: \d+
         field: "[a-zA-Z0-9]+"
 
 ekyna_survey_survey_admin_remove:
     path: /{surveyId}/remove
     defaults: { _controller: "ekyna_survey.survey.controller:removeAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
-        surveyId:  \d+
+        surveyId: \d+

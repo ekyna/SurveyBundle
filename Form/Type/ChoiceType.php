@@ -4,7 +4,7 @@ namespace Ekyna\Bundle\SurveyBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ChoiceType
@@ -19,29 +19,29 @@ class ChoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', 'text', array(
+            ->add('content', 'text', [
                 'label' => false,
-                'attr' => array(
+                'attr' => [
                     'widget_col' => 12,
-                )
-            ))
-            ->add('position', 'hidden', array(
-                'attr' => array(
+                ]
+            ])
+            ->add('position', 'hidden', [
+                'attr' => [
                     'data-collection-role' => 'position',
-                ),
-            ))
+                ],
+            ])
         ;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'data_class' => 'Ekyna\Bundle\SurveyBundle\Entity\Choice',
-            ))
+            ])
         ;
     }
 

@@ -24,7 +24,7 @@ class AnswerTypeRegistryPass implements CompilerPassInterface
 
         $registry = $container->getDefinition('ekyna_survey.answer_type.registry');
 
-        $types = array();
+        $types = [];
         foreach ($container->findTaggedServiceIds('ekyna_survey.answer_type') as $serviceId => $tags) {
             $types[] = new Reference($serviceId);
         }

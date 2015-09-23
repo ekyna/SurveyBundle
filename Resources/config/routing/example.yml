@@ -1,5 +1,4 @@
 ekyna_survey_example_complete:
-    path: /
+    path: ""
     defaults: { _controller: EkynaSurveyBundle:Example:complete }
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]

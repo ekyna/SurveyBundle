@@ -4,7 +4,7 @@ namespace Ekyna\Bundle\SurveyBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ResultType
@@ -42,10 +42,10 @@ class ResultType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('answers', 'collection', array(
+            ->add('answers', 'collection', [
                 'label' => false,
                 'type'  => 'ekyna_survey_answer',
-            ))
+            ])
         ;
 
         if ($this->kernelEnvironment !== 'test') {
@@ -56,13 +56,13 @@ class ResultType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'label' => false,
                 'data_class' => $this->dataClass,
-            ))
+            ])
         ;
     }
 

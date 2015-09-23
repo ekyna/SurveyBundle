@@ -51,6 +51,7 @@ class AnswerValidator extends ConstraintValidator
             return;
         }
         $type = $this->registry->getType($question->getType());
+        /** @noinspection PhpParamsInspection */
         $type->validate($answer, $this->context);
     }
 }
