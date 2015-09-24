@@ -18,7 +18,7 @@
 	],
 	"require" : {
 		"php" : ">=5.4.0",
-		"ekyna/cms-bundle" : "0.3.*@dev",
+		"ekyna/cms-bundle" : "0.3.x-dev",
 		"ob/highcharts-bundle" : "~1.2"
 	},
 	"autoload" : {
