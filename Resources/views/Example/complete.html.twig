@@ -1,14 +1,7 @@
 {% extends "EkynaCmsBundle::base.html.twig" %}
 
-{% block body %}
+{% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            {{ cms_flashes() }}
-            {{ cms_breadcrumb() }}
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-md-12">
             {% if survey is defined and form is defined %}
@@ -26,4 +19,4 @@
         </div>
     </div>
 </div>
-{% endblock body %}
+{% endblock content %}

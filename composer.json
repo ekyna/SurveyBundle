@@ -18,17 +18,12 @@
 	],
 	"require" : {
 		"php" : ">=5.4.0",
-		"ekyna/cms-bundle" : "1.0.x-dev",
+		"ekyna/cms-bundle" : "dev-master",
 		"ob/highcharts-bundle" : "~1.2"
 	},
 	"autoload" : {
 		"psr-4" : {
 			"Ekyna\\Bundle\\SurveyBundle\\" : ""
-		}
-	},
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "1.0.x-dev"
 		}
 	}
 }
