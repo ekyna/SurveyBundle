@@ -72,7 +72,7 @@ class LoadSurveyData extends AbstractFixture implements FixtureInterface, Ordere
                 $question = $questionRepository->createNew();
                 $question
                     ->setType($type->getName())
-                    ->setContent(rtrim($faker->paragraph(rand(1,3)), '.') . ' ?')
+                    ->setContent(rtrim($faker->paragraph(rand(1,3), false), '.') . ' ?')
                 ;
 
                 if ($type->requireChoices()) {
