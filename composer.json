@@ -18,7 +18,7 @@
 	],
 	"require" : {
 		"php" : ">=5.4.0",
-		"ekyna/cms-bundle" : "0.1.*@dev",
+		"ekyna/cms-bundle" : "0.2.x-dev",
 		"ob/highcharts-bundle" : "~1.2"
 	},
 	"autoload" : {
@@ -26,10 +26,5 @@
 			"Ekyna\\Bundle\\SurveyBundle" : ""
 		}
 	},
-	"target-dir" : "Ekyna/Bundle/SurveyBundle",
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "0.1.x-dev"
-		}
-	}
+	"target-dir" : "Ekyna/Bundle/SurveyBundle"
 }
