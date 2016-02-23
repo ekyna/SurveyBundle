@@ -90,7 +90,7 @@ class SingleChoiceAnswerType implements AnswerTypeInterface
         );
 
         $ob->tooltip->headerFormat('');
-        $ob->tooltip->pointFormat('<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>');
+        $ob->tooltip->pointFormat('<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f}%</b> of total<br/>');
 
         $ob->series(
             array(

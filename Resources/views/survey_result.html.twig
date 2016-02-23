@@ -8,7 +8,12 @@
         </tr>
         <tr>
             <td class="survey-result-answer">
-            {% if 0 < question.choices|length %}
+            {% if question.type == 'yes_or_no' %}
+                <ul style="margin-left: 5px;">
+                    <li style="font-size:14px; line-height:24px;">{{ 'ekyna_core.value.yes'|trans|raw }}</li>
+                    <li style="font-size:14px; line-height:24px;">{{ 'ekyna_core.value.no'|trans|raw }}</li>
+                </ul>
+            {% elseif 0 < question.choices|length %}
                 <ol style="margin-left: 5px;">
                 {% for choice in question.choices -%}
                     <li style="font-size:14px; line-height:24px;">{{ choice.content|raw }}</li>
@@ -20,7 +25,7 @@
             </td>
             <td class="survey-result-chart">
             {% if question.chart is not sameas(null) -%}
-                <div id="q-chart-{{ question.id }}" class="survey-result-chart-chart"></div>
+                <div id="q_chart_{{ question.id }}" class="survey-result-chart-chart"></div>
             {%- else -%}
                 <em>{{ 'ekyna_survey.question.message.no_chart'|trans }}</em>
             {%- endif %}
