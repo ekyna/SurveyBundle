@@ -47,21 +47,23 @@ abstract class AbstractAnswerType implements AnswerTypeInterface
             $total += $result['num'];
         }
 
-        $count = 0;
-        foreach ($results as $result) {
-            $answerView = new View\Answer(
-                $result['content'],
-                $result['num'],
-                round($result['num'] * 100 / $total, 2)
-            );
+        if (0 < $total) {
+            $count = 0;
+            foreach ($results as $result) {
+                $answerView = new View\Answer(
+                    $result['content'],
+                    $result['num'],
+                    round($result['num'] * 100 / $total, 2)
+                );
 
-            if (isset(self::getColors()[$count])) {
-                $answerView->setColor(self::getColors()[$count]);
+                if (isset(self::getColors()[$count])) {
+                    $answerView->setColor(self::getColors()[$count]);
+                }
+
+                $questionView->addAnswer($answerView);
+
+                $count++;
             }
-
-            $questionView->addAnswer($answerView);
-
-            $count++;
         }
 
         $view->addQuestion($questionView);
