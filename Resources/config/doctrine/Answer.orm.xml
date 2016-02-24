@@ -10,6 +10,10 @@
             repository-class="Ekyna\Bundle\SurveyBundle\Entity\AnswerRepository"
             table="survey_answer">
 
+        <indexes>
+            <index name="value_idx" columns="value" />
+        </indexes>
+
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>

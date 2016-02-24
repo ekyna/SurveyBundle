@@ -1,44 +1,83 @@
+{% spaceless %}
+<p>
+    {{ 'ekyna_survey.view.result_count'|trans }} : <strong>{{ view.resultCount }}</strong>
+</p>
 <div class="table-responsive">
     <table class="table table-striped">
-    {% for question in survey.questions -%}
+    {% for question in view.questions -%}
         <tr>
             <td class="survey-result-question" colspan="2">
-                <strong>[{{ question.type|survey_answer_type_label|trans }}]</strong> {{ question.content|raw }}
+                <strong>[{{ question.type|survey_answer_type_label|trans }}]</strong>
+                {{ question.content|raw }}
             </td>
         </tr>
         <tr>
             <td class="survey-result-answer">
-            {% if question.type == 'yes_or_no' %}
-                <ul style="margin-left: 5px;">
-                    <li style="font-size:14px; line-height:24px;">{{ 'ekyna_core.value.yes'|trans|raw }}</li>
-                    <li style="font-size:14px; line-height:24px;">{{ 'ekyna_core.value.no'|trans|raw }}</li>
-                </ul>
-            {% elseif 0 < question.choices|length %}
-                <ol style="margin-left: 5px;">
-                {% for choice in question.choices -%}
-                    <li style="font-size:14px; line-height:24px;">{{ choice.content|raw }}</li>
-                {%- endfor %}
-                </ol>
+            {% if 0 < question.answers|length and question.answers|length < 20 %}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>{{ 'ekyna_survey.view.answer'|trans }}</th>
+                            <th>{{ 'ekyna_survey.view.total'|trans }}</th>
+                            <th>{{ 'ekyna_survey.view.percent'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for answer in question.answers -%}
+                        <tr>
+                            <td><span style="background-color:#{{ answer.color }}"></span></td>
+                            <td>{{ answer.content|raw }}</td>
+                            <td>{{ answer.count }}</td>
+                            <td>{{ answer.percent }}&nbsp;%</td>
+                        </tr>
+                    {%- endfor %}
+                    </tbody>
+                </table>
             {% else %}
-                <em>{{ 'ekyna_survey.question.message.input_answer'|trans }}</em>
+                <em>{{ 'ekyna_survey.question.message.no_chart'|trans }}</em>
             {% endif %}
             </td>
             <td class="survey-result-chart">
-            {% if question.chart is not same as(null) -%}
-                <div id="q_chart_{{ question.id }}" class="survey-result-chart-chart"></div>
-            {%- else -%}
-                <em>{{ 'ekyna_survey.question.message.no_chart'|trans }}</em>
-            {%- endif %}
+                <div id="chart-{{ loop.index0 }}"></div>
             </td>
         </tr>
     {%- endfor %}
     </table>
 </div>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-require(['jquery', 'highcharts'], function($) {
-    {% for question in survey.questions %}{% if question.chart is not same as(null) -%}
-    {{ chart(question.chart) }}
-    {%- endif %}{% endfor %}
-});
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawCharts);
+    function drawCharts() {
+        {% for question in view.questions -%}
+        {% if 0 < question.answers|length and question.answers|length < 20 -%}
+        drawChart{{ loop.index0 }}();
+        {%- endif %}
+        {%- endfor %}
+    }
+    {% for question in view.questions -%}
+    function drawChart{{ loop.index0 }}() {
+        {% if 0 < question.answers|length and question.answers|length < 20 -%}
+        var data = [['Réponse', 'Nombre']], colors = [];
+        {% for answer in question.answers %}
+        data.push(['{{ answer.content|truncate(16) }}', {{ answer.count }}]);
+        colors.push('{{ answer.color }}');
+        {% endfor %}
+        var chart = new google.visualization.PieChart(document.getElementById('chart-{{ loop.index0 }}'));
+        chart.draw(
+            google.visualization.arrayToDataTable(data),
+            {colors: colors, legend: {position: 'none'}, pieSliceText: 'none'}
+        );
+        {%- endif %}
+    }
+    {%- endfor %}
 </script>
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        $(window).resize(function(){
+            drawCharts();
+        });
+    });
+</script>
+{% endspaceless %}

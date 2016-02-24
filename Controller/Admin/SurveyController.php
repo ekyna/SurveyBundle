@@ -6,6 +6,9 @@ use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\TinymceTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -18,10 +21,59 @@ class SurveyController extends ResourceController
     use TinymceTrait;
 
     /**
+     * Export action
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function exportAction(Request $request)
+    {
+        $context = $this->loadContext($request);
+
+        $resourceName = $this->config->getResourceName();
+        /** @var \Ekyna\Bundle\SurveyBundle\Entity\Survey $survey */
+        $survey = $context->getResource($resourceName);
+
+        $this->isGranted('VIEW', $survey);
+
+        $response = new Response();
+        /*$response->setLastModified($survey->getUpdatedAt());
+        if ($response->isNotModified($request)) {
+            return $response;
+        }*/
+
+        $content = $this->renderView('EkynaSurveyBundle:Admin/Survey:export.pdf.twig', array(
+            'survey' => $survey,
+        ));
+
+        $format = $request->attributes->get('_format', 'pdf');
+        if ('html' === $format) {
+            $response->setContent($content);
+        } elseif ('pdf' === $format) {
+            $response->setContent(
+                $this->get('knp_snappy.pdf')->getOutputFromHtml($content)
+            );
+            $response->headers->add(array('Content-Type' => 'application/pdf'));
+        } else {
+            throw new NotFoundHttpException('Unsupported format.');
+        }
+
+        if ($request->query->get('_download', false)) {
+            $filename = sprintf('survey-%s.%s', $survey->getId(), $format);
+            $contentDisposition = $response->headers->makeDisposition(
+                ResponseHeaderBag::DISPOSITION_ATTACHMENT, $filename
+            );
+            $response->headers->set('Content-Disposition', $contentDisposition);
+        }
+
+        return $response;
+    }
+
+    /**
      * Survey reset action.
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function resetAction(Request $request)
     {

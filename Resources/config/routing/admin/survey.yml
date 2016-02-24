@@ -27,6 +27,13 @@ ekyna_survey_survey_admin_edit:
     requirements:
         surveyId: \d+
 
+ekyna_survey_survey_admin_export:
+    path: /{surveyId}/export.{_format}
+    defaults: { _controller: "ekyna_survey.survey.controller:exportAction", _format: "pdf" }
+    requirements:
+        _method: GET
+        surveyId:  \d+
+
 ekyna_survey_survey_admin_reset:
     path: /{surveyId}/reset
     defaults: { _controller: "ekyna_survey.survey.controller:resetAction" }
