@@ -37,22 +37,6 @@ abstract class AbstractValueType implements AnswerTypeInterface
             ->setParameters(array('question' => $question))
             ->getArrayResult();
 
-        // Add missing results
-        // TODO move in answer type
-        if ($question->getType() === 'yes_or_no') {
-            foreach (array('yes', 'no') as $choice) {
-                foreach ($results as $result) {
-                    if ($result['content'] == $choice) {
-                        continue 2;
-                    }
-                }
-                array_push($results, array(
-                    'content' => $choice,
-                    'num'     => 0,
-                ));
-            }
-        };
-
         $results = $this->fixAnswersResults($results);
 
         $total = 0;

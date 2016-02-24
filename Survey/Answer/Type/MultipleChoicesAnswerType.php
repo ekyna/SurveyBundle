@@ -3,10 +3,8 @@
 namespace Ekyna\Bundle\SurveyBundle\Survey\Answer\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
-use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Component\Form\FormInterface;
 
 /**
