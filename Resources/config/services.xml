@@ -103,12 +103,6 @@
             <argument id="doctrine.orm.default_entity_manager" type="service" />
         </service>
 
-        <!-- Charts loader -->
-        <service id="ekyna_survey.chart_loader" class="Ekyna\Bundle\SurveyBundle\Survey\ChartLoader">
-            <argument id="ekyna_survey.answer_type.registry" type="service" />
-            <argument id="doctrine.orm.default_entity_manager" type="service" />
-        </service>
-
         <!-- Validators -->
         <service id="ekyna_survey.question.validator" class="Ekyna\Bundle\SurveyBundle\Validator\Constraints\QuestionValidator">
             <argument id="ekyna_survey.answer_type.registry" type="service" />

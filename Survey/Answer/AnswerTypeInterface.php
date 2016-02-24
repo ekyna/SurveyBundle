@@ -5,13 +5,14 @@ namespace Ekyna\Bundle\SurveyBundle\Survey\Answer;
 use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
+use Ekyna\Bundle\SurveyBundle\Survey\View\Survey as View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Interface AnswerTypeInterface
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 interface AnswerTypeInterface
 {
@@ -41,17 +42,18 @@ interface AnswerTypeInterface
     /**
      * Builds the question view.
      *
+     * @param View                   $view
      * @param QuestionInterface      $question
      * @param EntityManagerInterface $em
      *
      * @return \Ekyna\Bundle\SurveyBundle\Survey\View\Answer[]
      */
-    public function buildQuestionViewAnswers(QuestionInterface $question, EntityManagerInterface $em);
+    public function fillView(View $view, QuestionInterface $question, EntityManagerInterface $em);
 
     /**
      * Loads the fixture answer data.
      *
-     * @param AnswerInterface $answer
+     * @param AnswerInterface  $answer
      * @param \Faker\Generator $faker
      */
     public function loadFixtureData(AnswerInterface $answer, $faker);
