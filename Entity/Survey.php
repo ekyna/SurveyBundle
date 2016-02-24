@@ -3,7 +3,6 @@
 namespace Ekyna\Bundle\SurveyBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Ekyna\Bundle\CmsBundle\Entity\Seo;
 use Ekyna\Bundle\CoreBundle\Model as Core;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Ekyna\Bundle\SurveyBundle\Model\SurveyInterface;
@@ -64,7 +63,6 @@ class Survey implements SurveyInterface
      */
     public function __construct()
     {
-        $this->seo = new Seo();
         $this->questions = new ArrayCollection();
     }
 

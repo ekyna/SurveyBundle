@@ -2,13 +2,10 @@
 
 namespace Ekyna\Bundle\SurveyBundle\Twig;
 
-use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Ekyna\Bundle\SurveyBundle\Model\SurveyInterface;
 use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeRegistryInterface;
-use Ekyna\Bundle\SurveyBundle\Survey\ChartLoader;
 use Ekyna\Bundle\SurveyBundle\Survey\View\Builder as ViewBuilder;
 use Ekyna\Bundle\SurveyBundle\Survey\View\Question;
-use Guzzle\Http\Url;
 
 /**
  * Class SurveyExtension
@@ -32,24 +29,17 @@ class SurveyExtension extends \Twig_Extension
      */
     private $registry;
 
-    /**
-     * @var ChartLoader
-     */
-    private $chartLoader;
-
 
     /**
      * Constructor.
      *
      * @param ViewBuilder                 $viewBuilder
      * @param AnswerTypeRegistryInterface $registry
-     * @param ChartLoader                 $chartLoader
      */
-    public function __construct(ViewBuilder $viewBuilder, AnswerTypeRegistryInterface $registry, ChartLoader $chartLoader)
+    public function __construct(ViewBuilder $viewBuilder, AnswerTypeRegistryInterface $registry)
     {
         $this->viewBuilder = $viewBuilder;
         $this->registry    = $registry;
-        $this->chartLoader = $chartLoader;
     }
 
     /**
