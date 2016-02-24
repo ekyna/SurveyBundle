@@ -5,7 +5,6 @@ namespace Ekyna\Bundle\SurveyBundle\Survey\Answer\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
-use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
@@ -14,7 +13,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class IntegerAnswerType implements AnswerTypeInterface
+class IntegerAnswerType extends AbstractValueType
 {
     /**
      * {@inheritdoc}
@@ -34,22 +33,6 @@ class IntegerAnswerType implements AnswerTypeInterface
         if (!ctype_digit(strval($answer->getValue())) && 0 > $answer->getValue()) {
             $context->addViolationAt('value', 'ekyna_survey.answer.integer_value_is_mandatory');
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildChart(QuestionInterface $question, EntityManagerInterface $em)
-    {
-
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function requireChoices()
-    {
-        return false;
     }
 
     /**

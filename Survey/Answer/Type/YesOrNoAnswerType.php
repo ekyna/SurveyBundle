@@ -5,7 +5,6 @@ namespace Ekyna\Bundle\SurveyBundle\Survey\Answer\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
-use Ekyna\Bundle\SurveyBundle\Survey\Answer\AnswerTypeInterface;
 use Ob\HighchartsBundle\Highcharts\Highchart;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Translation\Translator;
@@ -16,13 +15,16 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class YesOrNoAnswerType implements AnswerTypeInterface
+class YesOrNoAnswerType extends AbstractValueType
 {
     /**
      * @var Translator
      */
     private $translator;
 
+    /**
+     * @var array
+     */
     private $choices = array(
         'yes' => 'ekyna_core.value.yes',
         'no'  => 'ekyna_core.value.no',
@@ -70,90 +72,27 @@ class YesOrNoAnswerType implements AnswerTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function buildChart(QuestionInterface $question, EntityManagerInterface $em)
+    protected function fixAnswersResults(array $results)
     {
-        $qb = $em->createQueryBuilder();
-
-        if (null === $this->chartQuery) {
-            $this->chartQuery = $qb
-                ->from('Ekyna\Bundle\SurveyBundle\Entity\Answer', 'a')
-                ->join('a.question', 'q')
-                ->andWhere('q = :question')
-                ->andWhere('a.value = :value')
-                ->getQuery();
-        }
-
-        $data = [];
-        $query = $em->createQuery(
-            'SELECT COUNT(a.id) ' .
-            'FROM Ekyna\Bundle\SurveyBundle\Entity\Answer a '.
-            'JOIN a.question q '.
-            'WHERE q = :question AND a.value = :value '
-        );
-
-        $total = 0;
         foreach ($this->choices as $key => $value) {
-            $count = $query
-                ->setParameters(array(
-                    'question' => $question,
-                    'value'    => $key
-                ))
-                ->getSingleScalarResult()
-            ;
-            $total += $count;
-
-            $data[] = array($this->translator->trans($value), intval($count));
+            foreach ($results as $result) {
+                if ($result['content'] == $key) {
+                    continue 2;
+                }
+            }
+            array_push($results, array(
+                'content' => $key,
+                'num'     => 0,
+            ));
         }
 
-        // No answers : abort
-        if ($total == 0) {
-            return;
+        foreach ($results as &$result) {
+            $result['content'] = $this->translator->trans(
+                $this->choices[$result['content']]
+            );
         }
 
-        // Percents
-        foreach ($data as &$d) {
-            $d[1] = round($d[1] * 100 / $total, 5);
-        }
-
-        $ob = new Highchart();
-        $ob->title->text(null);
-        $ob->credits->enabled(false);
-
-        $ob->chart->renderTo('q_chart_'.$question->getId());
-        $ob->chart->type('pie');
-        $ob->chart->spacing(array(0,0,0,0));
-
-        $ob->plotOptions->series(
-            array(
-                'dataLabels' => array(
-                    'enabled' => true,
-                    'format' => '{point.name}: {point.y:.1f}%'
-                )
-            )
-        );
-
-        $ob->tooltip->headerFormat('');
-        $ob->tooltip->pointFormat('<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.1f}%</b> of total<br/>');
-
-        $ob->series(
-            array(
-                array(
-                    'name' => 'Répartition des choix',
-                    'colorByPoint' => true,
-                    'data' => $data
-                )
-            )
-        );
-
-        $question->setChart($ob);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function requireChoices()
-    {
-        return false;
+        return $results;
     }
 
     /**

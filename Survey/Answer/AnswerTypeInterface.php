@@ -32,19 +32,21 @@ interface AnswerTypeInterface
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context);
 
     /**
-     * Builds the question's answers chart.
-     *
-     * @param QuestionInterface      $question
-     * @param EntityManagerInterface $em
-     */
-    public function buildChart(QuestionInterface $question, EntityManagerInterface $em);
-
-    /**
      * Returns whether the answer requires at least one choice.
      *
      * @return integer
      */
     public function requireChoices();
+
+    /**
+     * Builds the question view.
+     *
+     * @param QuestionInterface      $question
+     * @param EntityManagerInterface $em
+     *
+     * @return \Ekyna\Bundle\SurveyBundle\Survey\View\Answer[]
+     */
+    public function buildQuestionViewAnswers(QuestionInterface $question, EntityManagerInterface $em);
 
     /**
      * Loads the fixture answer data.

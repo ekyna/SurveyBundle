@@ -97,6 +97,13 @@
             <argument id="ekyna_survey.result.repository" type="service" />
         </service>
 
+        <!-- View builder -->
+        <service id="ekyna_survey.view.builder" class="Ekyna\Bundle\SurveyBundle\Survey\View\Builder">
+            <argument id="ekyna_survey.answer_type.registry" type="service" />
+            <argument id="doctrine.orm.default_entity_manager" type="service" />
+            <argument id="translator" type="service" />
+        </service>
+
         <!-- Charts loader -->
         <service id="ekyna_survey.chart_loader" class="Ekyna\Bundle\SurveyBundle\Survey\ChartLoader">
             <argument id="ekyna_survey.answer_type.registry" type="service" />
@@ -115,6 +122,7 @@
 
         <!-- Twig extensions -->
         <service id="ekyna_survey.twig.survey_extension" class="Ekyna\Bundle\SurveyBundle\Twig\SurveyExtension">
+            <argument type="service" id="ekyna_survey.view.builder" />
             <argument type="service" id="ekyna_survey.answer_type.registry" />
             <argument type="service" id="ekyna_survey.chart_loader" />
             <tag name="twig.extension" />

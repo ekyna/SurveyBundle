@@ -16,6 +16,7 @@ ekyna_survey:
             show: Détail du sondage
             new: Nouveau sondage
             edit: Modifier le sondage
+            export: Export PDF
             reset: Réinitialiser le sondage
             remove: Supprimer le sondage
         alert:
@@ -41,10 +42,14 @@ ekyna_survey:
             add: Ajouter une question
         message:
             no_chart: Graphique non disponible.
-            input_answer: Réponse par saisie.
     choice:
         label:
             singular: Choix
             plural: Choix
         button:
             add: Ajouter un choix
+    view:
+        result_count: Nombre de réponse(s) au sondage
+        answer: Réponse
+        total: Total
+        percent: Pourcentage

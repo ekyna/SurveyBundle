@@ -11,6 +11,7 @@
 
 {% block main %}
 <div class="actions">
+    {{ ui_button('ekyna_survey.survey.button.export', {'type': 'link', 'path': path('ekyna_survey_survey_admin_export', {'surveyId': survey.id}), 'theme': 'default'}, {'target': '_blank'}) }}
     {{ ui_button('ekyna_survey.survey.button.reset', {'type': 'link', 'path': path('ekyna_survey_survey_admin_reset', {'surveyId': survey.id}), 'theme': 'warning'}) }}
     {{ admin_resource_btn(survey, 'edit') }}
     {{ admin_resource_btn(survey, 'remove') }}
