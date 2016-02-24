@@ -28,6 +28,7 @@
             <tag name="ekyna_survey.answer_type" />
         </service>
         <service id="ekyna_survey.answer_type.yes_or_no" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\YesOrNoAnswerType">
+            <argument id="translator" type="service" />
             <tag name="ekyna_survey.answer_type" />
         </service>
         <service id="ekyna_survey.answer_type.text" class="Ekyna\Bundle\SurveyBundle\Survey\Answer\Type\TextAnswerType">
