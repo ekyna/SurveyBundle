@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class MultipleChoicesAnswerType extends AbstractChoiceType
+class MultipleChoicesAnswerType extends AbstractAnswerChoiceType
 {
     /**
      * {@inheritdoc}

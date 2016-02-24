@@ -24,6 +24,7 @@ class Question
      */
     private $answers;
 
+
     /**
      * Constructor.
      *
@@ -66,5 +67,19 @@ class Question
     public function getAnswers()
     {
         return $this->answers;
+    }
+
+    /**
+     * Adds the answer.
+     *
+     * @param Answer $answer
+     *
+     * @return $this
+     */
+    public function addAnswer(Answer $answer)
+    {
+        array_push($this->answers, $answer);
+
+        return $this;
     }
 }
