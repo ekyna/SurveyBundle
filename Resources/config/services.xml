@@ -117,7 +117,6 @@
         <service id="ekyna_survey.twig.survey_extension" class="Ekyna\Bundle\SurveyBundle\Twig\SurveyExtension">
             <argument type="service" id="ekyna_survey.view.builder" />
             <argument type="service" id="ekyna_survey.answer_type.registry" />
-            <argument type="service" id="ekyna_survey.chart_loader" />
             <tag name="twig.extension" />
         </service>
 
