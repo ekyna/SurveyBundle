@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\SurveyBundle\Survey\Answer\Type;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\AnswerInterface;
 use Ekyna\Bundle\SurveyBundle\Model\QuestionInterface;
 use Symfony\Component\Form\FormInterface;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class YesOrNoAnswerType extends AbstractValueType
+class YesOrNoAnswerType extends AbstractAnswerType
 {
     /**
      * @var Translator
@@ -57,7 +58,7 @@ class YesOrNoAnswerType extends AbstractValueType
      */
     public function validate(AnswerInterface $answer, ExecutionContextInterface $context)
     {
-        if (!in_array($answer->getValue(), array('no', 'yes'), true)) {
+        if (!in_array($answer->getValue(), array_keys($this->choices), true)) {
             $context->addViolationAt('value', 'ekyna_survey.answer.bool_value_is_mandatory');
         }
     }
@@ -65,9 +66,11 @@ class YesOrNoAnswerType extends AbstractValueType
     /**
      * {@inheritdoc}
      */
-    protected function fixAnswersResults(array $results)
+    protected function getAnswersResults(QuestionInterface $question, EntityManagerInterface $em)
     {
-        foreach ($this->choices as $key => $value) {
+        $results = parent::getAnswersResults($question, $em);
+
+        foreach (array_keys($this->choices) as $key) {
             foreach ($results as $result) {
                 if ($result['content'] == $key) {
                     continue 2;

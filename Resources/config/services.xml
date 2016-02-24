@@ -101,7 +101,6 @@
         <service id="ekyna_survey.view.builder" class="Ekyna\Bundle\SurveyBundle\Survey\View\Builder">
             <argument id="ekyna_survey.answer_type.registry" type="service" />
             <argument id="doctrine.orm.default_entity_manager" type="service" />
-            <argument id="translator" type="service" />
         </service>
 
         <!-- Charts loader -->

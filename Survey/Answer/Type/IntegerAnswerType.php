@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @package Ekyna\Bundle\SurveyBundle\Survey\Answer\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class IntegerAnswerType extends AbstractValueType
+class IntegerAnswerType extends AbstractAnswerType
 {
     /**
      * {@inheritdoc}
