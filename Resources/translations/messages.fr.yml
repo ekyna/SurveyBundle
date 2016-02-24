@@ -42,6 +42,7 @@ ekyna_survey:
             add: Ajouter une question
         message:
             no_chart: Graphique non disponible.
+            no_answer: Aucune ou trop de réponse(s) disponible(s).
     choice:
         label:
             singular: Choix
